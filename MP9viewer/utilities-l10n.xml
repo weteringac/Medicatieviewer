@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+  Sources NIST &amp; Ringholm examples set:
+  HITSP_C32v2.1_TestPackage/HITSP_C32_examples/CCD.xsl
+  HITSP_C32v2.1_TestPackage/HITSP_C32_examples/HumanViewCCD.xsl
+  CDA_R2_examples/UK_CFH/CDA_NPfIT_Document_Renderer.xsl
+  CDA_R2_examples/UV_generic_examples/cda_old.xsl
+  CDA_R2_examples/CH_HL7_Switzerland/V1.1/fr/CDA-CH_Sample_de-CH.xsl
+  CDA_R2_examples/CH_HL7_Switzerland/V1.1/fr/CDA-CH_Sample_fr-CH.xsl
+  CDA_R2_examples/CH_HL7_Switzerland/V1.1/fr/CDA-CH_Sample_it-CH.xsl
+  CDA_R2_examples/UV_Imaging_SINR/CDA-DIR.xsl
+  CDA_R2_examples/UV_Imaging_SINR/CDA.xsl
+  CDA_R2_examples/CA_EMS/CDA.ReleaseTwo.MembershipBallot01.Dec.2004.xsl
+-->
+<?xml-stylesheet type="text/xsl" href="cda_l10n.xsl"?>
+<translations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="utilities-l10n.xsd">
+    <languageList>
+        <language description="English (American)" lang="en-us"/>
+        <language description="Dutch (Netherlands)" lang="nl-nl"/>
+        <language description="German (Switzerland)" lang="de-ch"/>
+        <language description="French (Switzerland)" lang="fr-ch"/>
+        <language description="Italian (Switzerland)" lang="it-ch"/>
+    </languageList>
+	
+	<!-- Translations re-used from CDA.XML -->
+    <translation>
+        <comment>Label: Display disclaimer</comment>
+        <key value="Display Disclaimer">
+            <value lang="en-us">Disclaimer: the purpose of this stylesheet and the results it produces from xml messages is exclusively for testing. They are explicitly NOT suited for use in a medical practise.</value>
+            <value lang="nl-nl">Disclaimer: Deze stylesheet en de resulterende html weergave van xml berichten zijn uitsluitend bedoeld voor testdoeleinden. Zij zijn uitdrukkelijk niet bedoeld voor gebruik in de medische praktijk.</value>
+        </key>
+    </translation>
+    <translation>
+        <comment>Label: recordTarget</comment>
+        <key value="recordTarget">
+            <value lang="en-us">Patient</value>
+            <value lang="it-ch">Paziente</value>
+            <value lang="nl-nl">Patiënt</value>
+        </key>
+    </translation>
+    <translation>
+        <comment>Label: name</comment>
+        <key value="name">
+            <value lang="en-us">Name</value>
+            <value lang="nl-nl">Naam</value>
+        </key>
+    </translation>
+    <translation>
+        <comment>Label: addr</comment>
+        <key value="addr">
+            <value lang="en-us">Address</value>
+            <value lang="nl-nl">Adres</value>
+        </key>
+    </translation>
+
+  <translation>
+    <comment>Dates: January</comment>
+    <key value="January">
+      <value lang="en-us">January</value>
+      <value lang="de-ch">Januar</value>
+      <value lang="fr-ch">Janvier</value>
+      <value lang="it-ch">Gennaio</value>
+      <value lang="nl-nl">januari</value>
+    </key>
+  </translation>
+
+  <translation>
+    <comment>Dates: February</comment>
+    <key value="February">
+      <value lang="en-us">February</value>
+      <value lang="de-ch">Februar</value>
+      <value lang="fr-ch">Février</value>
+      <value lang="it-ch">Febbraio</value>
+      <value lang="nl-nl">februari</value>
+    </key>
+  </translation>
+
+  <translation>
+    <comment>Dates: March</comment>
+    <key value="March">
+      <value lang="en-us">March</value>
+      <value lang="de-ch">März</value>
+      <value lang="fr-ch">Mars</value>
+      <value lang="it-ch">März</value>
+      <value lang="nl-nl">maart</value>
+    </key>
+  </translation>
+
+  <translation>
+    <comment>Dates: April</comment>
+    <key value="April">
+      <value lang="en-us">April</value>
+      <value lang="fr-ch">Avril</value>
+      <value lang="it-ch">Marzo</value>
+      <value lang="nl-nl">april</value>
+    </key>
+  </translation>
+
+  <translation>
+    <comment>Dates: May</comment>
+    <key value="May">
+      <value lang="en-us">May</value>
+      <value lang="de-ch">Mai</value>
+      <value lang="fr-ch">Mai</value>
+      <value lang="it-ch">Maggio</value>
+      <value lang="nl-nl">mei</value>
+    </key>
+  </translation>
+
+  <translation>
+    <comment>Dates: June</comment>
+    <key value="June">
+      <value lang="en-us">June</value>
+      <value lang="de-ch">Juni</value>
+      <value lang="fr-ch">Juin</value>
+      <value lang="it-ch">Giugno</value>
+      <value lang="nl-nl">juni</value>
+    </key>
+  </translation>
+
+  <translation>
+    <comment>Dates: July</comment>
+    <key value="July">
+      <value lang="en-us">July</value>
+      <value lang="de-ch">Juli</value>
+      <value lang="fr-ch">Juillet</value>
+      <value lang="it-ch">Luglio</value>
+      <value lang="nl-nl">juli</value>
+    </key>
+  </translation>
+
+  <translation>
+    <comment>Dates: August</comment>
+    <key value="August">
+      <value lang="en-us">August</value>
+      <value lang="fr-ch">Août</value>
+      <value lang="it-ch">Agosto</value>
+      <value lang="nl-nl">augustus</value>
+    </key>
+  </translation>
+
+  <translation>
+    <comment>Dates: September</comment>
+    <key value="September">
+      <value lang="en-us">September</value>
+      <value lang="fr-ch">Septembre</value>
+      <value lang="it-ch">Settembre</value>
+      <value lang="nl-nl">september</value>
+    </key>
+  </translation>
+
+  <translation>
+    <comment>Dates: October</comment>
+    <key value="October">
+      <value lang="en-us">October</value>
+      <value lang="de-ch">Oktober</value>
+      <value lang="fr-ch">Octobre</value>
+      <value lang="it-ch">Ottobre</value>
+      <value lang="nl-nl">oktober</value>
+    </key>
+  </translation>
+
+  <translation>
+    <comment>Dates: November</comment>
+    <key value="November">
+      <value lang="en-us">November</value>
+      <value lang="fr-ch">Novembre</value>
+      <value lang="it-ch">Novembre</value>
+      <value lang="nl-nl">november</value>
+    </key>
+  </translation>
+
+  <translation>
+    <comment>Dates: December</comment>
+    <key value="December">
+      <value lang="en-us">December</value>
+      <value lang="de-ch">Dezember</value>
+      <value lang="fr-ch">Décembre</value>
+      <value lang="it-ch">Dicembre</value>
+      <value lang="nl-nl">december</value>
+    </key>
+  </translation>
+	
+	
+<!-- BEGIN translations specific for MedViewer9 -->
+    <translation>
+        <comment>Label: Medication overview</comment>
+        <key value="medicationOverview">
+            <value lang="en-US">Medication overview</value>
+            <value lang="nl-NL">Medicatieoverzicht</value>
+        </key>
+    </translation>
+    <translation>
+        <comment>Label: Medication Data</comment>
+        <key value="medicationData">
+            <value lang="en-US">Medication Data</value>
+            <value lang="nl-NL">Medicatiegegevens</value>
+        </key>
+    </translation>
+    <translation>
+        <comment>Label: Medication Usage Data</comment>
+        <key value="medicationUsageData">
+            <value lang="en-US">Medication Usage</value>
+            <value lang="nl-NL">Medicatiegebruik</value>
+        </key>
+    </translation>
+    <translation>
+        <comment>Label: Unsupported document type</comment>
+        <key value="unsupportedDocument">
+            <value lang="en-US">Unsupported Document Type</value>
+            <value lang="nl-NL">Niet ondersteund berichttype</value>
+        </key>
+    </translation>
+	
+    <translation>
+        <comment>Label: Type</comment>
+        <key value="type">
+            <value lang="en-US">Type</value>
+            <value lang="nl-NL">Type</value>
+        </key>
+    </translation>
+    <translation>
+        <comment>Label: medication</comment>
+        <key value="medication">
+            <value lang="en-US">Medication</value>
+            <value lang="nl-NL">Geneesmiddel</value>
+        </key>
+    </translation>
+    <translation>
+        <comment>Label: start date</comment>
+        <key value="startDate">
+            <value lang="en-US">Start date</value>
+            <value lang="nl-NL">Ingangsdatum</value>
+        </key>
+    </translation>
+    <translation>
+        <comment>Label: agreement date</comment>
+        <key value="agreementDate">
+            <value lang="en-US">Agreement date (no start date available)</value>
+            <value lang="nl-NL">Afspraakdatum (geen ingangsdatum beschikbaar)</value>
+        </key>
+    </translation>
+    <translation>
+        <comment>Label: registration date</comment>
+        <key value="registrationDate">
+            <value lang="en-US">Registration date (no start date available)</value>
+            <value lang="nl-NL">Registratiedatum (geen ingangsdatum beschikbaar)</value>
+        </key>
+    </translation>
+    <translation>
+        <comment>Label: end date</comment>
+        <key value="endDate">
+            <value lang="en-US">End date</value>
+            <value lang="nl-NL">Einddatum</value>
+        </key>
+    </translation>
+    <translation>
+        <comment>Label: duration</comment>
+        <key value="duration">
+            <value lang="en-US">Duration</value>
+            <value lang="nl-NL">Duur</value>
+        </key>
+    </translation>
+    <translation>
+        <comment>Label: dosage</comment>
+        <key value="dosage">
+            <value lang="en-US">Dosage</value>
+            <value lang="nl-NL">Dosering</value>
+        </key>
+    </translation>
+    <translation>
+        <comment>Label: route</comment>
+        <key value="route">
+            <value lang="en-US">Route</value>
+            <value lang="nl-NL">Toedieningsweg</value>
+        </key>
+    </translation>
+    <translation>
+        <comment>Label: Reason for prescription</comment>
+        <key value="prescriptionReason">
+            <value lang="en-US">Reason for prescription</value>
+            <value lang="nl-NL">Reden van voorschrijven</value>
+        </key>
+    </translation>
+    <translation>
+        <comment>Label: Reason for abort</comment>
+        <key value="abortReason">
+            <value lang="en-US">Reason for abort</value>
+            <value lang="nl-NL">Reden van staken</value>
+        </key>
+    </translation>
+    <translation>
+        <comment>Label: Reason for pause</comment>
+        <key value="pauseReason">
+            <value lang="en-US">Reason for pause</value>
+            <value lang="nl-NL">Reden van onderbreken</value>
+        </key>
+    </translation>
+    <translation>
+        <comment>Label: Reason</comment>
+        <key value="reason">
+            <value lang="en-US">Reason</value>
+            <value lang="nl-NL">Reden</value>
+        </key>
+    </translation>
+    <translation>
+        <comment>Label: Remark</comment>
+        <key value="remark">
+            <value lang="en-US">Remark</value>
+            <value lang="nl-NL">Toelichting</value>
+        </key>
+    </translation>
+    <translation>
+        <comment>Label: Source</comment>
+        <key value="source">
+            <value lang="en-US">Source</value>
+            <value lang="nl-NL">Bron</value>
+        </key>
+    </translation>
+    <translation>
+        <comment>Label: BSN</comment>
+        <key value="bsn">
+            <value lang="en-US">National PID</value>
+            <value lang="nl-NL">BSN</value>
+        </key>
+    </translation>
+    <translation>
+        <comment>Label: phone</comment>
+        <key value="phone">
+            <value lang="en-US">Phone</value>
+            <value lang="nl-NL">Telefoon</value>
+        </key>
+    </translation>
+    <translation>
+        <comment>Label: Healthcare provider</comment>
+        <key value="healthcareProvider">
+            <value lang="en-US">Healthcare provider</value>
+            <value lang="nl-NL">Zorgaanbieder</value>
+        </key>
+    </translation>
+    <translation>
+        <comment>Label: email</comment>
+        <key value="email">
+            <value lang="en-US">Email</value>
+            <value lang="nl-NL">E-mail</value>
+        </key>
+    </translation>
+    <translation>
+        <comment>Label: General</comment>
+        <key value="general">
+            <value lang="en-US">General</value>
+            <value lang="nl-NL">Algemeen</value>
+        </key>
+    </translation>
+    <translation>
+        <comment>Label: Date</comment>
+        <key value="date">
+            <value lang="en-US">Date</value>
+            <value lang="nl-NL">Datum</value>
+        </key>
+    </translation>
+    <translation>
+        <comment>Label: (patient) length</comment>
+        <key value="length">
+            <value lang="en-US">Length</value>
+            <value lang="nl-NL">Lengte</value>
+        </key>
+    </translation>
+    <translation>
+        <comment>Label: (patient) weight</comment>
+        <key value="weight">
+            <value lang="en-US">Weight</value>
+            <value lang="nl-NL">Gewicht</value>
+        </key>
+    </translation>
+    <translation>
+        <comment>Label: date unknown</comment>
+        <key value="dateUnknown">
+            <value lang="en-US">Date unknown</value>
+            <value lang="nl-NL">Datum onbekend</value>
+        </key>
+    </translation>
+    <translation>
+        <comment>Label: checked by caregiver</comment>
+        <key value="checkedByCaregiver">
+            <value lang="en-US">Checked by caregiver</value>
+            <value lang="nl-NL">Gecontroleerd door zorgverlener</value>
+        </key>
+    </translation>
+    <translation>
+        <comment>Label: Verified with the patient or its caretaker</comment>
+        <key value="verifiedWithPatient">
+            <value lang="en-US">Verified with patient/caretaker</value>
+            <value lang="nl-NL">Geverifieerd met patiënt/mantelzorger</value>
+        </key>
+    </translation>
+    <translation>
+        <comment>Label: Negative</comment>
+        <key value="answerNo">
+            <value lang="en-US">No</value>
+            <value lang="nl-NL">Nee</value>
+        </key>
+    </translation>
+    <translation>
+        <comment>Label: Current medication</comment>
+        <key value="currentMedication">
+            <value lang="en-US">Current medication</value>
+            <value lang="nl-NL">Huidige medicatie</value>
+        </key>
+    </translation>
+    <translation>
+        <comment>Label: Recently terminated medication</comment>
+        <key value="recentlyTerminatedMedication">
+            <value lang="en-US">Recently terminated medication</value>
+            <value lang="nl-NL">Recent beëindigde medicatie </value>
+        </key>
+    </translation>
+    <translation>
+        <comment>Label: Future medication (not yet started)</comment>
+        <key value="futureMedication">
+            <value lang="en-US">Future medication</value>
+            <value lang="nl-NL">Toekomstige medicatie</value>
+        </key>
+    </translation>
+    <translation>
+        <comment>Label: Pharmacist</comment>
+        <key value="pharmacist">
+            <value lang="en-US">Pharmacist</value>
+            <value lang="nl-NL">Apotheker</value>
+        </key>
+    </translation>
+    <translation>
+        <comment>Label: medication agreement</comment>
+        <key value="medicationAgreement">
+            <value lang="en-US">Medication agreement</value>
+            <value lang="nl-NL">Medicatieafspraak</value>
+        </key>
+    </translation>
+    <translation>
+        <comment>Label: administration agreement</comment>
+        <key value="administrationAgreement">
+            <value lang="en-US">Administration agreement</value>
+            <value lang="nl-NL">Toedieningsafspraak</value>
+        </key>
+    </translation>
+    <translation>
+        <comment>Label: medication use</comment>
+        <key value="medicationUse">
+            <value lang="en-US">Medication use</value>
+            <value lang="nl-NL">Medicatiegebruik</value>
+        </key>
+    </translation>
+	
+    <translation>
+        <comment>Error Label: invalid date</comment>
+        <key value="errInvalidDate">
+            <value lang="en-US">Invalid date</value>
+            <value lang="nl-NL">Foute datum</value>
+        </key>
+    </translation>
+    <translation>
+        <comment>Error Label: invalid dateTime</comment>
+        <key value="errInvalidDateTime">
+            <value lang="en-US">Invalid date/time</value>
+            <value lang="nl-NL">Foute datum/tijd</value>
+        </key>
+    </translation>
+	
+<!-- END translations specific for MedViewer9 -->
+	
+</translations>

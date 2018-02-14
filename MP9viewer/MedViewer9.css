@@ -1,0 +1,105 @@
+/* 
+    Copyright © Nictiz
+	see https://www.nictiz.nl/
+
+    This file is part of Medicatieviewer
+	
+	This program is free software; you can redistribute it and/or modify it under the terms of the
+	GNU Lesser General Public License as published by the Free Software Foundation; either version
+	3.0 of the License, or (at your option) any later version.
+	
+	This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+	without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+	See the GNU Lesser General Public License for more details.
+	
+	The full text of the license is available at http://www.gnu.org/copyleft/lesser.html
+*/
+
+  *
+  {
+    font-family: Verdana, Tahoma, sans-serif;
+    font-size: 9pt;
+  }
+  body
+  {
+    padding: 2px;
+  }
+  .title
+  {
+    font-weight: bold; 
+    font-style: italic; 
+    font-size: 120%;
+    text-align: center;
+  }
+  
+  h3
+  {
+    margin-bottom: 0px;
+    padding: 2px 4px;
+    color: white;
+    font-size: 120%;
+    font-weight: bold;
+  }
+  h3.general
+  {
+    background-color: rgb(156, 194, 229);
+  }
+  h3.current
+  {
+    background-color: rgb(68, 114, 196);
+  }
+  h3.future
+  {
+    background-color: rgb(68, 84, 106);
+  }
+  h3.past
+  {
+    background-color: rgb(165, 165, 165);
+  }
+  
+  table
+  {
+    width:100%;
+    border-spacing: 0px;
+  }
+  th
+  {
+    background-color: lightgray;
+    text-align: left;
+    padding: 2px 5px 2px 5px;
+  }
+  td
+  {
+    padding: 2px 5px 2px 5px;
+  }
+  td.labelLeft 
+  {
+    width: 15%;
+    font-style: italic;
+  }
+  td.contentLeft 
+  {
+    width: 45%;
+  }
+  td.labelRight 
+  {
+    width: 20%;
+    font-style: italic;
+  }
+  td.contentRight 
+  {
+  }
+  td.current 
+  {
+    border: 1px solid rgb(68, 114, 196);
+  }
+  table.current
+  {
+    border: 1px solid rgb(68, 114, 196);
+  }
+  
+  .hideDebugInfo 
+  {
+    display: none;
+  }
+          

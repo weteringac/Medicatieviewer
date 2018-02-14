@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	Copyright © Nictiz
+	see https://www.nictiz.nl/
+
+    This file is part of Medicatieviewer
+	
+	This program is free software; you can redistribute it and/or modify it under the terms of the
+	GNU Lesser General Public License as published by the Free Software Foundation; either version
+	3.0 of the License, or (at your option) any later version.
+	
+	This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+	without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+	See the GNU Lesser General Public License for more details.
+	
+	The full text of the license is available at http://www.gnu.org/copyleft/lesser.html
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="translations">
+    <xs:complexType>
+        <xs:sequence>
+            <xs:element name="languageList">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="language" maxOccurs="unbounded">
+                            <xs:complexType mixed="true">
+                                <xs:sequence/>
+                                <xs:attribute name="description" type="xs:string"/>
+                                <xs:attribute name="lang" type="xs:language"/>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="translation" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="comment" type="xs:string"/>
+                        <xs:element name="key">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="value" maxOccurs="unbounded">
+                                        <xs:complexType mixed="true">
+                                            <xs:sequence/>
+                                            <xs:attribute name="lang" type="xs:language"/>
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:sequence>
+                                <xs:attribute name="value" type="xs:string"/>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:unique name="uniqueKey">
+        <xs:selector xpath="translation"/>
+        <xs:field xpath="key/@value"/>
+    </xs:unique>
+</xs:element>
+</xs:schema>
