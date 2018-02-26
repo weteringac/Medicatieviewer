@@ -43,6 +43,7 @@
          <text mediaType="text/plain">1x daags 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170621080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -131,6 +132,7 @@
          <text mediaType="text/plain">1x daags 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170621080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -209,6 +211,7 @@
          <text mediaType="text/plain">1 x daags 1 druppel</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170621080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="7"
                     codeSystem="2.16.840.1.113883.2.4.4.9"
@@ -307,6 +310,7 @@
          <text mediaType="text/plain">1 x daags 1 druppel</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170621080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="7"
                     codeSystem="2.16.840.1.113883.2.4.4.9"
@@ -395,6 +399,7 @@
          <text mediaType="text/plain">1x daags 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170621080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -595,6 +600,7 @@
          <text mediaType="text/plain">1x daags 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170621080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -743,6 +749,7 @@
          <text mediaType="text/plain">1x daags 1 tablet ‘s avonds</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170621170000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -951,6 +958,7 @@
          <text mediaType="text/plain">1x daags 1 tablet ‘s avonds</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170621170000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -1137,6 +1145,7 @@
          <text mediaType="text/plain">1x daags 4 tabletten</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170621080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -1525,6 +1534,7 @@
          <text mediaType="text/plain">1x daags 4 tabletten</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170621080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -1852,6 +1862,7 @@
          <text mediaType="text/plain">1x daags 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170621080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -2052,6 +2063,7 @@
          <text mediaType="text/plain">1x daags 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170621080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -2221,6 +2233,7 @@
          <text mediaType="text/plain">1x daags 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170914070000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -2420,6 +2433,7 @@
          <text mediaType="text/plain">1x daags 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170914070000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -2589,6 +2603,7 @@
          <text mediaType="text/plain">1x daags 1 tablet ‘s avonds</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170914070000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -2700,6 +2715,7 @@
          <text mediaType="text/plain">1x daags 1 tablet ‘s avonds</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170914070000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -2790,6 +2806,7 @@
          <text mediaType="text/plain">1x daags 1 tablet ‘s morgens</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170914070000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -3035,6 +3052,7 @@
          <text mediaType="text/plain">1x daags 1 tablet ‘s morgens</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170914070000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -3248,6 +3266,7 @@
          <text mediaType="text/plain">Volgens opbouwschema: o	2 dagen 2 tabletten van 5 mg. o	2 dagen 4 tabletten van 5 mg o	3 dagen 6 tabletten van 5 mg</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170915070000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -3560,6 +3579,7 @@
          <text mediaType="text/plain">Volgens opbouwschema: o	2 dagen 2 tabletten van 5 mg. o	2 dagen 4 tabletten van 5 mg o	3 dagen 6 tabletten van 5 mg</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170915070000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -3825,6 +3845,7 @@
          <text mediaType="text/plain">Volgens opbouwschema: o	2 dagen 2 tabletten van 20 mg. o	2 dagen 4 tabletten van 20 mg o	3 dagen 6 tabletten van 20 mg</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170916214500"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -4120,6 +4141,7 @@
          <text mediaType="text/plain">Volgens opbouwschema: o	2 dagen 2 tabletten van 20 mg. o	2 dagen 4 tabletten van 20 mg o	3 dagen 6 tabletten van 20 mg</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170916214500"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -5004,6 +5026,7 @@
          <text mediaType="text/plain">1x daags 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170922080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -5103,6 +5126,7 @@
          <text mediaType="text/plain">1x daags 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170922080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>

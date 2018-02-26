@@ -25,7 +25,7 @@
                <prefix qualifier="VV">van </prefix>
                <family qualifier="BR">XXX_Boerka</family>
             </name>
-            <administrativeGenderCode code="F" codeSystem="2.16.840.1.113883.5.1" displayName="Female"/>
+            <administrativeGenderCode code="F" codeSystem="2.16.840.1.113883.5.1" displayName="Vrouw"/>
             <birthTime value="19540810"/>
          </patient>
       </patientRole>
@@ -43,6 +43,7 @@
          <text mediaType="text/plain">1x daags 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170306080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -85,7 +86,7 @@
                <value xsi:type="CE"
                       code="266709005"
                       codeSystem="2.16.840.1.113883.6.96"
-                      displayName="Medication commenced (finding)"/>
+                      displayName="Starten medicamenteuze behandeling"/>
             </observation>
          </entryRelationship>
          <entryRelationship typeCode="COMP">
@@ -175,7 +176,7 @@
                <value xsi:type="CE"
                       codeSystem="2.16.840.1.113883.2.4.3.11.60.20.77.5.2.1"
                       code="2"
-                      displayName="Definitief"/>
+                      displayName="Staking"/>
             </observation>
          </entryRelationship>
          <entryRelationship typeCode="RSON">
@@ -214,6 +215,7 @@
          <text mediaType="text/plain">1x daags 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170306080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -324,7 +326,7 @@
                <value xsi:type="CE"
                       codeSystem="2.16.840.1.113883.2.4.3.11.60.20.77.5.2.1"
                       code="2"
-                      displayName="Definitief"/>
+                      displayName="Staking"/>
             </observation>
          </entryRelationship>
          <entryRelationship typeCode="REFR">
@@ -362,6 +364,7 @@
          <text mediaType="text/plain">1 x daags 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170411140000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -460,7 +463,7 @@
                <value xsi:type="CE"
                       codeSystem="2.16.840.1.113883.2.4.3.11.60.20.77.5.2.1"
                       code="2"
-                      displayName="Definitief"/>
+                      displayName="Staking"/>
             </observation>
          </entryRelationship>
          <entryRelationship typeCode="RSON">
@@ -510,6 +513,7 @@
          <text mediaType="text/plain">1 x daags 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170411140000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -620,7 +624,7 @@
                <value xsi:type="CE"
                       codeSystem="2.16.840.1.113883.2.4.3.11.60.20.77.5.2.1"
                       code="2"
-                      displayName="Definitief"/>
+                      displayName="Staking"/>
             </observation>
          </entryRelationship>
          <entryRelationship typeCode="REFR">
@@ -658,6 +662,7 @@
          <text mediaType="text/plain">1x daags 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170411140000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -699,7 +704,7 @@
                <value xsi:type="CE"
                       code="266709005"
                       codeSystem="2.16.840.1.113883.6.96"
-                      displayName="Medication commenced (finding)"/>
+                      displayName="Starten medicamenteuze behandeling"/>
             </observation>
          </entryRelationship>
          <entryRelationship typeCode="COMP">
@@ -747,6 +752,7 @@
          <text mediaType="text/plain">1x daags 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170411140000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -825,6 +831,7 @@
          <text mediaType="text/plain">Zonodig 1x daags 1 tablet onder de tong. Eventueel na 5 minuten herhalen, eventueel na nog 5 minuten een derde. Bij onvoldoende effect binnen 15 minuten arts waarschuwen (Angina Pectoris)</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170411140000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="121"
                     codeSystem="2.16.840.1.113883.2.4.4.9"
@@ -868,7 +875,7 @@
                <value xsi:type="CE"
                       code="266709005"
                       codeSystem="2.16.840.1.113883.6.96"
-                      displayName="Medication commenced (finding)"/>
+                      displayName="Starten medicamenteuze behandeling"/>
             </observation>
          </entryRelationship>
          <entryRelationship typeCode="SPRT">
@@ -931,6 +938,7 @@
          <text mediaType="text/plain">Zonodig 1x daags 1 tablet onder de tong. Eventueel na 5 minuten herhalen, eventueel na nog 5 minuten een derde. Bij onvoldoende effect binnen 15 minuten arts waarschuwen (Angina Pectoris)</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170411140000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="121"
                     codeSystem="2.16.840.1.113883.2.4.4.9"
@@ -1027,6 +1035,7 @@
          <statusCode code="nullified"/>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170512080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -1068,7 +1077,7 @@
                <value xsi:type="CE"
                       code="266709005"
                       codeSystem="2.16.840.1.113883.6.96"
-                      displayName="Medication commenced (finding)"/>
+                      displayName="Starten medicamenteuze behandeling"/>
             </observation>
          </entryRelationship>
          <entryRelationship typeCode="COMP">
@@ -1116,6 +1125,7 @@
          <text mediaType="text/plain">1x daags 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170512080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -1194,6 +1204,7 @@
          <text mediaType="text/plain">1x daags 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20161016100000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -1235,7 +1246,7 @@
                <value xsi:type="CE"
                       code="266709005"
                       codeSystem="2.16.840.1.113883.6.96"
-                      displayName="Medication commenced (finding)"/>
+                      displayName="Starten medicamenteuze behandeling"/>
             </observation>
          </entryRelationship>
          <entryRelationship typeCode="COMP">
@@ -1325,7 +1336,7 @@
                <value xsi:type="CE"
                       codeSystem="2.16.840.1.113883.2.4.3.11.60.20.77.5.2.1"
                       code="2"
-                      displayName="Definitief"/>
+                      displayName="Staking"/>
             </observation>
          </entryRelationship>
          <entryRelationship typeCode="RSON">
@@ -1375,6 +1386,7 @@
          <text mediaType="text/plain">1x daags 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20161016100000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -1485,7 +1497,7 @@
                <value xsi:type="CE"
                       codeSystem="2.16.840.1.113883.2.4.3.11.60.20.77.5.2.1"
                       code="2"
-                      displayName="Definitief"/>
+                      displayName="Staking"/>
             </observation>
          </entryRelationship>
          <entryRelationship typeCode="REFR">
@@ -1523,6 +1535,7 @@
          <text mediaType="text/plain">1x daags 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170914080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -1564,7 +1577,7 @@
                <value xsi:type="CE"
                       code="266709005"
                       codeSystem="2.16.840.1.113883.6.96"
-                      displayName="Medication commenced (finding)"/>
+                      displayName="Starten medicamenteuze behandeling"/>
             </observation>
          </entryRelationship>
          <entryRelationship typeCode="COMP">
@@ -1623,6 +1636,7 @@
          <text mediaType="text/plain">1x daags 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170914080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -1701,6 +1715,7 @@
          <text mediaType="text/plain">1 x daags 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170914080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -1742,7 +1757,7 @@
                <value xsi:type="CE"
                       code="266709005"
                       codeSystem="2.16.840.1.113883.6.96"
-                      displayName="Medication commenced (finding)"/>
+                      displayName="Starten medicamenteuze behandeling"/>
             </observation>
          </entryRelationship>
          <entryRelationship typeCode="COMP">
@@ -1801,6 +1816,7 @@
          <text mediaType="text/plain">1 x daags 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170914080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>

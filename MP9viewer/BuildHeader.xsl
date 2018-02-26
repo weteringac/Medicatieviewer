@@ -1,20 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
-	Copyright © Nictiz
-	see https://www.nictiz.nl/
-
-    This file is part of Medicatieviewer
-	
-	This program is free software; you can redistribute it and/or modify it under the terms of the
-	GNU Lesser General Public License as published by the Free Software Foundation; either version
-	3.0 of the License, or (at your option) any later version.
-	
-	This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
-	without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-	See the GNU Lesser General Public License for more details.
-	
-	The full text of the license is available at http://www.gnu.org/copyleft/lesser.html
--->
 <xsl:stylesheet 
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" 
@@ -56,6 +40,8 @@
     <xsl:template name="buildHeader">
         <xsl:param name="isMO" as="xs:boolean"/>
         
+        <xsl:variable name="authorIsPatient" as="xs:boolean" select="author/assignedAuthor/code/@code = 'ONESELF'"/>
+        
         <table>
             <!-- For MO the table has 4 columns and should be the full width. For MedData display only the left 2 columns -->
             <xsl:attribute name="style">
@@ -67,16 +53,19 @@
                     <xsl:value-of select="nf:getLocalizedString('name')"/>            
                 </td>
                 <td class="contentLeft"><xsl:call-template name="getPatientNameBirthGender"/></td>
-                <xsl:if test="$isMO">
+                <xsl:if test="$isMO and not($authorIsPatient)">
                     <td class="labelRight"><i><xsl:value-of select="nf:getLocalizedString('healthcareProvider')"/></i></td>
                     <td class="contentRight"><xsl:call-template name="getCareOrganizationName"/></td>
+                </xsl:if>
+                <xsl:if test="$authorIsPatient">
+                    <td class="labelRight">Overzicht opgesteld door patient</td>
                 </xsl:if>
             </tr>
             <tr>
                 <td class="labelLeft"><xsl:value-of select="nf:getLocalizedString('addr')"/></td>
                 <td class="contentLeft"><xsl:call-template name="getPatientAddress"/></td>
                 
-                <xsl:if test="$isMO">
+                <xsl:if test="$isMO and not($authorIsPatient)">
                     <td class="labelRight"><xsl:value-of select="nf:getLocalizedString('addr')"/></td>
                     <td class="contentRight"><xsl:call-template name="getCareOrganizationAddress"/></td>
                 </xsl:if>
@@ -85,7 +74,7 @@
                 <td class="labelLeft"><xsl:value-of select="nf:getLocalizedString('phone')"/></td>
                 <td class="contentLeft"><xsl:call-template name="getPatientPhone"/></td>
 
-                <xsl:if test="$isMO">
+                <xsl:if test="$isMO and not($authorIsPatient)">
                     <td class="labelRight"><xsl:value-of select="nf:getLocalizedString('phone')"/></td>
                     <td class="contentRight"><xsl:call-template name="getCareOrganizationPhone"/></td>
                 </xsl:if>
@@ -94,7 +83,7 @@
                 <td class="labelLeft"><xsl:value-of select="nf:getLocalizedString('bsn')"/></td>
                 <td class="contentLeft"><xsl:call-template name="getPatientBSN"/></td>
                 
-                <xsl:if test="$isMO">
+                <xsl:if test="$isMO and not($authorIsPatient)">
                     <td class="labelRight"><xsl:value-of select="nf:getLocalizedString('email')"/></td> 
                     <td class="contentRight"><xsl:call-template name="getCareOrganizationEmail"/></td>
                 </xsl:if>
@@ -118,6 +107,7 @@
             <xsl:value-of select="if (string-length($_birthTime) > 0) then 
                 concat(nf:printHl7DateTime($_birthTime, true()), ', ') else 
                 ''"/>
+            <xsl:value-of select="recordTarget/patientRole/patient/administrativeGenderCode/@code"/>
             )
         </b>
     </xsl:template>

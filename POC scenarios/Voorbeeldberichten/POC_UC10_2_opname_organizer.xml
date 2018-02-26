@@ -42,6 +42,7 @@
          <text mediaType="text/plain">Dosering	volgens schema van de trombosedienst</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170101080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -189,6 +190,7 @@
          <text mediaType="text/plain">1x per dag 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170101080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -366,6 +368,7 @@
          <text mediaType="text/plain">1x per dag 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170101080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -443,6 +446,7 @@
          <text mediaType="text/plain">1x per dag 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170101080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -520,6 +524,7 @@
          <text mediaType="text/plain">2x per dag 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170101080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -597,6 +602,7 @@
          <text mediaType="text/plain">1x per dag 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170101080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -674,6 +680,7 @@
          <text mediaType="text/plain">3x per dag 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170101080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -751,6 +758,7 @@
          <text mediaType="text/plain">1x per dag 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20171001070000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -850,6 +858,7 @@
          <text mediaType="text/plain">1x per dag 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20171001070000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -949,6 +958,7 @@
          <text mediaType="text/plain">1 x per dag 0,3 MILLILITER</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20171001070000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="21"
                     codeSystem="2.16.840.1.113883.2.4.4.9"
@@ -1007,6 +1017,14 @@
                       displayName="Anticoagulant effect (finding)"/>
             </observation>
          </entryRelationship>
+         <entryRelationship typeCode="SPRT">
+            <act classCode="ACT" moodCode="RQO">
+               <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9085"/>
+               <code nullFlavor="OTH">
+                  <originalText>Na ontslag toedienen volgens schema Trombosedienst</originalText>
+               </code>
+            </act>
+         </entryRelationship>
          <entryRelationship typeCode="COMP">
             <sequenceNumber value="1"/>
             <substanceAdministration classCode="SBADM" moodCode="RQO">
@@ -1063,6 +1081,7 @@
          <text mediaType="text/plain">2 x per dag 1 TABLET</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20171001070000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -1139,6 +1158,7 @@
          <text mediaType="text/plain">0-6 x per dag 1 capsule zo nodig</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20171001070000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -1227,6 +1247,7 @@
          <text mediaType="text/plain">1x per dag 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20171001070000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -1316,6 +1337,7 @@
          <text mediaType="text/plain">Dosering	1-2 per dag 1 zakje</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20171001070000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>

@@ -25,7 +25,7 @@
                <prefix qualifier="VV">van </prefix>
                <family qualifier="BR">XXX_Bentum</family>
             </name>
-            <administrativeGenderCode code="F" codeSystem="2.16.840.1.113883.5.1" displayName="Female"/>
+            <administrativeGenderCode code="F" codeSystem="2.16.840.1.113883.5.1" displayName="Vrouw"/>
             <birthTime value="19540811"/>
             <multipleBirthInd xmlns="urn:hl7-org:sdtc" nullFlavor="UNK"/>
          </patient>
@@ -127,8 +127,8 @@
                   <hl7nl:count value="1"/>
                </effectiveTime>
                <rateQuantity>
-                  <low value="133" unit="ml/h"/>
-                  <high value="200" unit="ml/h"/>
+                  <low value="133" unit="eenheid/"/>
+                  <high value="200" unit="eenheid/"/>
                </rateQuantity>
                <consumable xsi:nil="true"/>
             </substanceAdministration>
@@ -435,6 +435,12 @@
             <substanceAdministration classCode="SBADM" moodCode="RQO">
                <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9149"/>
                <effectiveTime xsi:type="SXPR_TS" operator="A">
+                  <comp xsi:type="hl7nl:PIVL_TS" operator="A" isFlexible="true">
+                     <hl7nl:frequency>
+                        <hl7nl:numerator xsi:type="hl7nl:INT" value="1"/>
+                        <hl7nl:denominator xsi:type="hl7nl:PQ" value="1" unit="wk"/>
+                     </hl7nl:frequency>
+                  </comp>
                   <comp xsi:type="hl7nl:PIVL_TS"
                         operator="A"
                         isFlexible="true"
@@ -495,9 +501,10 @@
                displayName="Medicatieafspraak"
                codeSystem="2.16.840.1.113883.6.96"
                codeSystemName="SNOMED CT"/>
-         <text mediaType="text/plain">Dosering	eenmaal daags 1 pleister aanbrengen gedurende 16 uur (daarna 8 uur geen pleister).</text>
+         <text mediaType="text/plain">Dosering eenmaal daags 1 pleister aanbrengen gedurende 16 uur (daarna 8 uur geen pleister).</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170928080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="58"
                     codeSystem="2.16.840.1.113883.2.4.4.9"
@@ -541,7 +548,7 @@
                <value xsi:type="CE"
                       code="266709005"
                       codeSystem="2.16.840.1.113883.6.96"
-                      displayName="Medication commenced (finding)"/>
+                      displayName="Starten medicamenteuze behandeling"/>
             </observation>
          </entryRelationship>
          <entryRelationship typeCode="SPRT">
@@ -642,7 +649,7 @@
                <value xsi:type="CE"
                       code="266709005"
                       codeSystem="2.16.840.1.113883.6.96"
-                      displayName="Medication commenced (finding)"/>
+                      displayName="Starten medicamenteuze behandeling"/>
             </observation>
          </entryRelationship>
          <entryRelationship typeCode="COMP">
@@ -692,8 +699,8 @@
       <substanceAdministration xmlns:nf="http://www.nictiz.nl/functions"
                                classCode="SBADM"
                                moodCode="EVN"
-                               negationInd="true">
-         <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9154"/>
+                               negationInd="false">
+         <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9190"/>
          <id extension="POC_UC09_MBH06_GB01" root="2.2.3.4.5"/>
          <code code="6"
                displayName="Gebruik"
@@ -706,7 +713,7 @@
          </effectiveTime>
          <consumable>
             <manufacturedProduct classCode="MANU">
-               <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9070"/>
+               <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9163"/>
                <manufacturedMaterial classCode="MMAT" determinerCode="KIND">
                   <name>Metformine </name>
                </manufacturedMaterial>
@@ -723,6 +730,15 @@
                      codeSystemName="HL7 Role code"/>
             </assignedAuthor>
          </author>
+         <entryRelationship typeCode="COMP">
+            <observation classCode="OBS" moodCode="EVN">
+               <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9189"/>
+               <code displayName="Gebruikindicator"
+                     code="15"
+                     codeSystem="2.16.840.1.113883.2.4.3.11.60.20.77.5.2"/>
+               <value xsi:type="BL" value="false"/>
+            </observation>
+         </entryRelationship>
          <entryRelationship typeCode="RSON">
             <observation classCode="OBS" moodCode="EVN">
                <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9115"/>
@@ -732,7 +748,7 @@
                      codeSystemName="Medicatieproces observaties"/>
                <value xsi:type="CE"
                       code="473010000"
-                      displayName="Hypersensitivity condition (disorder)"
+                      displayName="Overgevoeligheid"
                       codeSystem="2.16.840.1.113883.6.96"
                       codeSystemName="Medicatieafspraak reden"/>
             </observation>
@@ -877,7 +893,7 @@
                                classCode="SBADM"
                                moodCode="EVN"
                                negationInd="false">
-         <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9154"/>
+         <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9190"/>
          <id extension="POC_UC09_MBH07_GB01" root="2.2.3.4.5"/>
          <code code="6"
                displayName="Gebruik"
@@ -886,13 +902,14 @@
          <text mediaType="text/plain">maximaal 6 per dag</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170928080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code=""
                     codeSystem="2.16.840.1.113883.2.4.4.9"
                     displayName="Mondeling"/>
          <consumable>
             <manufacturedProduct classCode="MANU">
-               <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9070"/>
+               <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9163"/>
                <manufacturedMaterial classCode="MMAT" determinerCode="KIND">
                   <name>paracetamol</name>
                </manufacturedMaterial>
@@ -909,6 +926,15 @@
                      codeSystemName="HL7 Role code"/>
             </assignedAuthor>
          </author>
+         <entryRelationship typeCode="COMP">
+            <observation classCode="OBS" moodCode="EVN">
+               <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9189"/>
+               <code displayName="Gebruikindicator"
+                     code="15"
+                     codeSystem="2.16.840.1.113883.2.4.3.11.60.20.77.5.2"/>
+               <value xsi:type="BL" value="true"/>
+            </observation>
+         </entryRelationship>
          <entryRelationship typeCode="COMP">
             <observation classCode="OBS" moodCode="EVN">
                <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9117"/>
@@ -963,6 +989,7 @@
          <text mediaType="text/plain">Elke 7 uur verschonen</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170928080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="1"
                     codeSystem="2.16.840.1.113883.2.4.4.9"
@@ -1017,7 +1044,7 @@
                <effectiveTime xsi:type="hl7nl:PIVL_TS" operator="A" isFlexible="false">
                   <hl7nl:frequency>
                      <hl7nl:numerator xsi:type="hl7nl:INT" value="7"/>
-                     <hl7nl:denominator xsi:type="hl7nl:PQ" value="1" unit="h"/>
+                     <hl7nl:denominator xsi:type="hl7nl:PQ" value="7" unit="h"/>
                   </hl7nl:frequency>
                </effectiveTime>
                <consumable xsi:nil="true"/>

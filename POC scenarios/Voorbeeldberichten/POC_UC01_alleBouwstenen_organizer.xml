@@ -44,6 +44,7 @@
          <statusCode code="nullified"/>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170306080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -296,6 +297,7 @@
          <text mediaType="text/plain">1x daags 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170306080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -516,7 +518,7 @@
                                classCode="SBADM"
                                moodCode="EVN"
                                negationInd="false">
-         <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9154"/>
+         <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9190"/>
          <id extension="POC_UC01_1_MBH01_GB01" root="1.2.3.4.5"/>
          <code code="6"
                displayName="Gebruik"
@@ -525,11 +527,12 @@
          <text mediaType="text/plain">1x daags 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170306080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
             <manufacturedProduct classCode="MANU">
-               <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9070"/>
+               <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9163"/>
                <manufacturedMaterial classCode="MMAT" determinerCode="KIND">
                   <code code="15724506"
                         codeSystem="2.16.840.1.113883.2.4.4.8"
@@ -573,6 +576,15 @@
                </relatedPerson>
             </relatedEntity>
          </informant>
+         <entryRelationship typeCode="COMP">
+            <observation classCode="OBS" moodCode="EVN">
+               <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9189"/>
+               <code displayName="Gebruikindicator"
+                     code="15"
+                     codeSystem="2.16.840.1.113883.2.4.3.11.60.20.77.5.2"/>
+               <value xsi:type="BL" value="true"/>
+            </observation>
+         </entryRelationship>
          <entryRelationship typeCode="COMP">
             <observation classCode="OBS" moodCode="EVN">
                <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9117"/>
@@ -679,6 +691,7 @@
          <text mediaType="text/plain">1 x daags 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170411140000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -735,6 +748,7 @@
          <text mediaType="text/plain">1 x daags 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170411140000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -813,6 +827,7 @@
          <text mediaType="text/plain">1x daags 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170411140000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -902,6 +917,7 @@
          <text mediaType="text/plain">1x daags 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170411140000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -980,6 +996,7 @@
          <text mediaType="text/plain">Zonodig 1x daags 1 tablet onder de tong. Eventueel na 5 minuten herhalen, eventueel na nog 5 minuten een derde. Bij onvoldoende effect binnen 15 minuten arts waarschuwen (Angina Pectoris)</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170411140000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="121"
                     codeSystem="2.16.840.1.113883.2.4.4.9"
@@ -1086,6 +1103,7 @@
          <text mediaType="text/plain">Zonodig 1x daags 1 tablet onder de tong. Eventueel na 5 minuten herhalen, eventueel na nog 5 minuten een derde. Bij onvoldoende effect binnen 15 minuten arts waarschuwen (Angina Pectoris)</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170411140000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="121"
                     codeSystem="2.16.840.1.113883.2.4.4.9"
@@ -1182,6 +1200,7 @@
          <statusCode code="nullified"/>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170512080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -1271,6 +1290,7 @@
          <text mediaType="text/plain">1x daags 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170512080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -1349,6 +1369,7 @@
          <text mediaType="text/plain">1x daags 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20161016100000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -1530,6 +1551,7 @@
          <text mediaType="text/plain">1x daags 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20161016100000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>

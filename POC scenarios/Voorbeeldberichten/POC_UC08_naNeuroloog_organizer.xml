@@ -42,6 +42,7 @@
          <text mediaType="text/plain">1x daags 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170708080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -136,7 +137,7 @@
                                classCode="SBADM"
                                moodCode="EVN"
                                negationInd="false">
-         <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9154"/>
+         <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9190"/>
          <id extension="POC_UC08_1_MBH01_GB01" root="2.2.3.4.5"/>
          <code code="6"
                displayName="Gebruik"
@@ -145,11 +146,12 @@
          <text mediaType="text/plain">1x daags 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170708080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
             <manufacturedProduct classCode="MANU">
-               <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9070"/>
+               <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9163"/>
                <manufacturedMaterial classCode="MMAT" determinerCode="KIND">
                   <name>Simvastatine</name>
                </manufacturedMaterial>
@@ -166,6 +168,15 @@
                      codeSystemName="HL7 Role code"/>
             </assignedAuthor>
          </author>
+         <entryRelationship typeCode="COMP">
+            <observation classCode="OBS" moodCode="EVN">
+               <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9189"/>
+               <code displayName="Gebruikindicator"
+                     code="15"
+                     codeSystem="2.16.840.1.113883.2.4.3.11.60.20.77.5.2"/>
+               <value xsi:type="BL" value="true"/>
+            </observation>
+         </entryRelationship>
          <entryRelationship typeCode="COMP">
             <observation classCode="OBS" moodCode="EVN">
                <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9117"/>
@@ -210,6 +221,7 @@
          <text mediaType="text/plain">1x daags 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170708080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -304,7 +316,7 @@
                                classCode="SBADM"
                                moodCode="EVN"
                                negationInd="false">
-         <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9154"/>
+         <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9190"/>
          <id extension="POC_UC08_1_MBH02_GB01" root="2.2.3.4.5"/>
          <code code="6"
                displayName="Gebruik"
@@ -313,11 +325,12 @@
          <text mediaType="text/plain">1x daags 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170708080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
             <manufacturedProduct classCode="MANU">
-               <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9070"/>
+               <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9163"/>
                <manufacturedMaterial classCode="MMAT" determinerCode="KIND">
                   <name>Metoprolol</name>
                </manufacturedMaterial>
@@ -334,6 +347,15 @@
                      codeSystemName="HL7 Role code"/>
             </assignedAuthor>
          </author>
+         <entryRelationship typeCode="COMP">
+            <observation classCode="OBS" moodCode="EVN">
+               <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9189"/>
+               <code displayName="Gebruikindicator"
+                     code="15"
+                     codeSystem="2.16.840.1.113883.2.4.3.11.60.20.77.5.2"/>
+               <value xsi:type="BL" value="true"/>
+            </observation>
+         </entryRelationship>
          <entryRelationship typeCode="COMP">
             <observation classCode="OBS" moodCode="EVN">
                <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9117"/>
@@ -378,6 +400,7 @@
          <text mediaType="text/plain">200 mg 1x daags verhogen</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170904080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -825,7 +848,7 @@
                                classCode="SBADM"
                                moodCode="EVN"
                                negationInd="false">
-         <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9154"/>
+         <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9190"/>
          <id extension="POC_UC08_1_MBH03_GB01" root="2.2.3.4.5"/>
          <code code="6"
                displayName="Gebruik"
@@ -834,11 +857,12 @@
          <text mediaType="text/plain">200 mg/dag 1x daags verhogen tot 1200 mg/dag</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170904080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
             <manufacturedProduct classCode="MANU">
-               <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9070"/>
+               <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9163"/>
                <manufacturedMaterial classCode="MMAT" determinerCode="KIND">
                   <name>Carbamazepine</name>
                </manufacturedMaterial>
@@ -855,6 +879,15 @@
                      codeSystemName="HL7 Role code"/>
             </assignedAuthor>
          </author>
+         <entryRelationship typeCode="COMP">
+            <observation classCode="OBS" moodCode="EVN">
+               <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9189"/>
+               <code displayName="Gebruikindicator"
+                     code="15"
+                     codeSystem="2.16.840.1.113883.2.4.3.11.60.20.77.5.2"/>
+               <value xsi:type="BL" value="true"/>
+            </observation>
+         </entryRelationship>
          <entryRelationship typeCode="COMP">
             <observation classCode="OBS" moodCode="EVN">
                <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9117"/>
@@ -901,7 +934,7 @@
                                classCode="SBADM"
                                moodCode="EVN"
                                negationInd="false">
-         <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9154"/>
+         <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9190"/>
          <id extension="POC_UC08_1_MBH03_GB02" root="2.2.3.4.5"/>
          <code code="6"
                displayName="Gebruik"
@@ -915,7 +948,7 @@
          <routeCode code="" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
             <manufacturedProduct classCode="MANU">
-               <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9070"/>
+               <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9163"/>
                <manufacturedMaterial classCode="MMAT" determinerCode="KIND">
                   <name>Carbamazepine</name>
                </manufacturedMaterial>
@@ -932,6 +965,15 @@
                      codeSystemName="HL7 Role code"/>
             </assignedAuthor>
          </author>
+         <entryRelationship typeCode="COMP">
+            <observation classCode="OBS" moodCode="EVN">
+               <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9189"/>
+               <code displayName="Gebruikindicator"
+                     code="15"
+                     codeSystem="2.16.840.1.113883.2.4.3.11.60.20.77.5.2"/>
+               <value xsi:type="BL" value="true"/>
+            </observation>
+         </entryRelationship>
          <entryRelationship typeCode="COMP">
             <observation classCode="OBS" moodCode="EVN">
                <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9117"/>
@@ -1012,6 +1054,7 @@
          <text mediaType="text/plain">a.	Begindosering 2x 250 mg.  b.	Na 2 weken verhogen naar 2x per dag 500 mg. c.	Indien nodig iedere 2 weken met 2x dag 250 verhogen tot maximaal 2x dag 1500 mg.</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20171010080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -1186,7 +1229,7 @@
                                classCode="SBADM"
                                moodCode="EVN"
                                negationInd="false">
-         <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9154"/>
+         <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9190"/>
          <id extension="POC_UC08_2_MBH01_GB01" root="2.2.3.4.5"/>
          <code code="6"
                displayName="Gebruik"
@@ -1200,7 +1243,7 @@
          <routeCode code="" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
             <manufacturedProduct classCode="MANU">
-               <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9070"/>
+               <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9163"/>
                <manufacturedMaterial classCode="MMAT" determinerCode="KIND">
                   <name>Keppra</name>
                </manufacturedMaterial>
@@ -1226,6 +1269,15 @@
                      codeSystemName="HL7 Role code"/>
             </assignedEntity>
          </informant>
+         <entryRelationship typeCode="COMP">
+            <observation classCode="OBS" moodCode="EVN">
+               <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9189"/>
+               <code displayName="Gebruikindicator"
+                     code="15"
+                     codeSystem="2.16.840.1.113883.2.4.3.11.60.20.77.5.2"/>
+               <value xsi:type="BL" value="true"/>
+            </observation>
+         </entryRelationship>
          <entryRelationship typeCode="COMP">
             <observation classCode="OBS" moodCode="EVN">
                <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9117"/>
@@ -1283,7 +1335,7 @@
                                classCode="SBADM"
                                moodCode="EVN"
                                negationInd="false">
-         <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9154"/>
+         <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9190"/>
          <id extension="POC_UC08_2_MBH01_GB02" root="2.2.3.4.5"/>
          <code code="6"
                displayName="Gebruik"
@@ -1297,7 +1349,7 @@
          <routeCode code="" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
             <manufacturedProduct classCode="MANU">
-               <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9070"/>
+               <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9163"/>
                <manufacturedMaterial classCode="MMAT" determinerCode="KIND">
                   <name>Keppra</name>
                </manufacturedMaterial>
@@ -1314,6 +1366,15 @@
                      codeSystemName="HL7 Role code"/>
             </assignedAuthor>
          </author>
+         <entryRelationship typeCode="COMP">
+            <observation classCode="OBS" moodCode="EVN">
+               <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9189"/>
+               <code displayName="Gebruikindicator"
+                     code="15"
+                     codeSystem="2.16.840.1.113883.2.4.3.11.60.20.77.5.2"/>
+               <value xsi:type="BL" value="true"/>
+            </observation>
+         </entryRelationship>
          <entryRelationship typeCode="COMP">
             <observation classCode="OBS" moodCode="EVN">
                <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9117"/>
@@ -1359,8 +1420,8 @@
       <substanceAdministration xmlns:nf="http://www.nictiz.nl/functions"
                                classCode="SBADM"
                                moodCode="EVN"
-                               negationInd="true">
-         <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9154"/>
+                               negationInd="false">
+         <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9190"/>
          <id extension="POC_UC08_2_MBH01_GB03" root="2.2.3.4.5"/>
          <code code="6"
                displayName="Gebruik"
@@ -1374,7 +1435,7 @@
          <routeCode code="" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
             <manufacturedProduct classCode="MANU">
-               <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9070"/>
+               <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9163"/>
                <manufacturedMaterial classCode="MMAT" determinerCode="KIND">
                   <name>Keppra</name>
                </manufacturedMaterial>
@@ -1391,6 +1452,15 @@
                      codeSystemName="HL7 Role code"/>
             </assignedAuthor>
          </author>
+         <entryRelationship typeCode="COMP">
+            <observation classCode="OBS" moodCode="EVN">
+               <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9189"/>
+               <code displayName="Gebruikindicator"
+                     code="15"
+                     codeSystem="2.16.840.1.113883.2.4.3.11.60.20.77.5.2"/>
+               <value xsi:type="BL" value="false"/>
+            </observation>
+         </entryRelationship>
          <entryRelationship typeCode="RSON">
             <observation classCode="OBS" moodCode="EVN">
                <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9115"/>
@@ -1442,7 +1512,7 @@
                                classCode="SBADM"
                                moodCode="EVN"
                                negationInd="false">
-         <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9154"/>
+         <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9190"/>
          <id extension="POC_UC08_2_MBH01_GB04" root="2.2.3.4.5"/>
          <code code="6"
                displayName="Gebruik"
@@ -1456,7 +1526,7 @@
          <routeCode code="" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
             <manufacturedProduct classCode="MANU">
-               <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9070"/>
+               <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9163"/>
                <manufacturedMaterial classCode="MMAT" determinerCode="KIND">
                   <name>Keppra</name>
                </manufacturedMaterial>
@@ -1473,6 +1543,15 @@
                      codeSystemName="HL7 Role code"/>
             </assignedAuthor>
          </author>
+         <entryRelationship typeCode="COMP">
+            <observation classCode="OBS" moodCode="EVN">
+               <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9189"/>
+               <code displayName="Gebruikindicator"
+                     code="15"
+                     codeSystem="2.16.840.1.113883.2.4.3.11.60.20.77.5.2"/>
+               <value xsi:type="BL" value="true"/>
+            </observation>
+         </entryRelationship>
          <entryRelationship typeCode="COMP">
             <observation classCode="OBS" moodCode="EVN">
                <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9117"/>

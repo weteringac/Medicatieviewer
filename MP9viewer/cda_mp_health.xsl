@@ -1,20 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
-	Copyright © Nictiz
-	see https://www.nictiz.nl/
-
-    This file is part of Medicatieviewer
-	
-	This program is free software; you can redistribute it and/or modify it under the terms of the
-	GNU Lesser General Public License as published by the Free Software Foundation; either version
-	3.0 of the License, or (at your option) any later version.
-	
-	This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
-	without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-	See the GNU Lesser General Public License for more details.
-	
-	The full text of the license is available at http://www.gnu.org/copyleft/lesser.html
--->
 <xsl:stylesheet 
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" 
@@ -134,24 +118,38 @@
         <xsl:apply-templates select="hl7:MCCI_IN200101"/>
       </xsl:when>
       <xsl:when test="hl7:*[hl7:interactionId]/hl7:ControlActProcess/hl7:ClinicalDocument">
-        <xsl:apply-templates select="hl7:*[hl7:interactionId]/hl7:ControlActProcess/hl7:ClinicalDocument">
+        <xsl:for-each select="hl7:QUMA_IN991203NL01/hl7:ControlActProcess/hl7:subject[hl7:ClinicalDocument]">
+          <!-- Show the most recent MO first (in case these are MO's - otherwise the sorting has no effect) -->
+          <xsl:sort select="*/effectiveTime/@value" order="descending"/>
+          <xsl:call-template name="processDocumentOrOrganizer">
+            <xsl:with-param name="doHeader" select="true()"/>
+          </xsl:call-template>
+        </xsl:for-each>
+        <!--<xsl:apply-templates select="hl7:*[hl7:interactionId]/hl7:ControlActProcess/hl7:ClinicalDocument">
           <xsl:with-param name="doHeader" select="true()"/>
-        </xsl:apply-templates>
+        </xsl:apply-templates>-->
       </xsl:when>
       <xsl:when test="hl7:*[hl7:interactionId]/hl7:ControlActProcess/hl7:organizer">
-        <xsl:apply-templates select="hl7:*[hl7:interactionId]/hl7:ControlActProcess/hl7:organizer">
+        <xsl:for-each select="hl7:QUMA_IN991203NL01/hl7:ControlActProcess/hl7:subject[organizer]">
+          <!-- Show the most recent MO first (in case these are MO's - otherwise the sorting has no effect) -->
+          <xsl:sort select="*/effectiveTime/@value" order="descending"/>
+          <xsl:call-template name="processDocumentOrOrganizer">
+            <xsl:with-param name="doHeader" select="true()"/>
+          </xsl:call-template>
+        </xsl:for-each>
+        <!--<xsl:apply-templates select="hl7:*[hl7:interactionId]/hl7:ControlActProcess/hl7:organizer">
           <xsl:with-param name="doHeader" select="true()"/>
-        </xsl:apply-templates>
+        </xsl:apply-templates>-->
       </xsl:when>
       <xsl:when test="hl7:ClinicalDocument">
-        <xsl:apply-templates select="hl7:ClinicalDocument">
+        <xsl:call-template name="processDocumentOrOrganizer">
           <xsl:with-param name="doHeader" select="true()"/>
-        </xsl:apply-templates>
+        </xsl:call-template>
       </xsl:when>
       <xsl:when test="hl7:organizer">
-        <xsl:apply-templates select="hl7:organizer">
+        <xsl:call-template name="processDocumentOrOrganizer">
           <xsl:with-param name="doHeader" select="true()"/>
-        </xsl:apply-templates>
+        </xsl:call-template>
       </xsl:when>
       <xsl:otherwise>
         <xsl:message>Element not supported <xsl:value-of select="name()"/></xsl:message>
@@ -166,18 +164,14 @@
     <html>
       <xsl:call-template name="addHtmlHead"/>
       <body>
-        <xsl:choose>
-          <xsl:when test="hl7:QUMA_IN991203NL01/hl7:ControlActProcess/hl7:subject/hl7:ClinicalDocument">
-            <xsl:apply-templates select="hl7:QUMA_IN991203NL01/hl7:ControlActProcess/hl7:subject/hl7:ClinicalDocument">
-              <xsl:with-param name="doHeader" select="false()"/>
-            </xsl:apply-templates>
-          </xsl:when>
-          <xsl:when test="hl7:QUMA_IN991203NL01/hl7:ControlActProcess/hl7:subject/hl7:organizer">
-            <xsl:apply-templates select="hl7:QUMA_IN991203NL01/hl7:ControlActProcess/hl7:subject/hl7:organizer">
-              <xsl:with-param name="doHeader" select="false()"/>
-            </xsl:apply-templates>
-          </xsl:when>
-        </xsl:choose>
+        <xsl:for-each select="hl7:QUMA_IN991203NL01/hl7:ControlActProcess/hl7:subject[hl7:ClinicalDocument or hl7:organizer]">
+          <!-- Show the most recent MO first (in case these are MO's - otherwise the sorting has no effect) -->
+          <xsl:sort select="*/effectiveTime/@value" order="descending"/>
+          
+          <xsl:call-template name="processDocumentOrOrganizer">
+            <xsl:with-param name="doHeader" select="false()"/>
+          </xsl:call-template>
+        </xsl:for-each>
         
         <!-- Comment the next line for a 'clean' version. The toggle allows adding extra and debug information to the grid. -->
         <br /><input type="checkbox" id="toggleDebugVisible" onclick="toggleDebug()">Toon additionele informatie</input>
@@ -189,7 +183,8 @@
     <xd:desc>Processes a single document, whether it is a complete ClinicalDocument or only an organizer.</xd:desc>
     <xd:param name="doHeader">Whether a head-section should be added to the html: that should only be done once.</xd:param>
   </xd:doc>
-  <xsl:template match="hl7:ClinicalDocument | hl7:organizer">
+  <!--<xsl:template match="hl7:ClinicalDocument | hl7:organizer">-->
+  <xsl:template name="processDocumentOrOrganizer">
     <xsl:param name="doHeader" as="xs:boolean" required="yes"/>
     
     <xsl:choose>
@@ -639,7 +634,8 @@
           </xsl:for-each>
         </xsl:when>
         <xsl:when test="$componentType eq $CT_GB">
-          <xsl:for-each select="$componentNode[hl7:templateId/@root = '2.16.840.1.113883.2.4.3.11.60.20.77.10.9154']" >
+          <xsl:for-each select="$componentNode[hl7:templateId/@root = '2.16.840.1.113883.2.4.3.11.60.20.77.10.9154' or 
+                                               hl7:templateId/@root = '2.16.840.1.113883.2.4.3.11.60.20.77.10.9190']" >
             <xsl:value-of select="nf:determineStartDateTime(.)"/>
           </xsl:for-each>
         </xsl:when>
@@ -702,6 +698,28 @@
     </xsl:choose>
   </xsl:function>
 
+  <xd:doc>
+    <xd:desc>Returns if the medication is in use (for MedicatieGebruik)</xd:desc>
+    <xd:param name="substAdmNode">substanceAdministration node (root of the component) </xd:param>
+  </xd:doc>
+  <xsl:function name="nf:MedicationIsInUse" as="xs:boolean">
+    <xsl:param name="substAdmNode" as="node()*"/>
+
+    <xsl:choose>
+      <!-- MP 9.05 and higher -->
+      <xsl:when test="$substAdmNode/entryRelationship/observation[templateId/@root='2.16.840.1.113883.2.4.3.11.60.20.77.10.9189']/value/@value">
+        <xsl:value-of select="xs:boolean($substAdmNode/entryRelationship/observation[templateId/@root='2.16.840.1.113883.2.4.3.11.60.20.77.10.9189']/value/@value)"/>        
+      </xsl:when>
+      <!-- MP 9.04 and earlier -->
+      <xsl:when test="$substAdmNode/@negationInd">
+        <xsl:value-of select="$substAdmNode/@negationInd = 'false'"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="true()"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:function>
+  
 
   <xd:doc>
     <xd:desc>
@@ -945,8 +963,10 @@
       </xsl:for-each>
       
     <!-- Display all GB's (including those with 'gebruikIndicator = Nee') -->
-    <xsl:variable name="nrGBofMBH" select="count($mbhContent/hl7:templateId[@root = '2.16.840.1.113883.2.4.3.11.60.20.77.10.9154'])"/>
-    <xsl:for-each select="$mbhContent[hl7:templateId/@root = '2.16.840.1.113883.2.4.3.11.60.20.77.10.9154']" >
+    <xsl:variable name="nrGBofMBH" select="count($mbhContent/hl7:templateId[@root = '2.16.840.1.113883.2.4.3.11.60.20.77.10.9154' or
+                                                                            @root = '2.16.840.1.113883.2.4.3.11.60.20.77.10.9190'])"/>
+    <xsl:for-each select="$mbhContent[hl7:templateId/@root = '2.16.840.1.113883.2.4.3.11.60.20.77.10.9154' or 
+                                      hl7:templateId/@root = '2.16.840.1.113883.2.4.3.11.60.20.77.10.9190']" >
       <xsl:sort select="nf:determineStartDateTime(.)" order="descending"/>
       <xsl:call-template name="displayComponent">
         <xsl:with-param name="curMBHid" select="$curMBH"/>
@@ -989,7 +1009,7 @@
     <xsl:variable name="componentType" select="nf:determineComponentType(.)"/>
     <xsl:variable name="isStop" as="xs:boolean"
       select="exists($substAdmNode/entryRelationship/observation[templateId/@root = '2.16.840.1.113883.2.4.3.11.60.20.77.10.9067']) or 
-      ./@negationInd = 'true'"/>   <!-- if there is a stoptype, or medication in use indicator is false -->
+      not(nf:MedicationIsInUse($substAdmNode))"/>   <!-- if there is a stoptype, or medication in use indicator is false -->
   
     <xsl:variable name="isDeviatingGB" as="xs:boolean"
       select="if (exists($substAdmNode/entryRelationship/observation[templateId/@root = '2.16.840.1.113883.2.4.3.11.60.20.77.10.9117'])) then
@@ -1148,7 +1168,7 @@
       <xsl:when test="$componentType eq $CT_TA"><img src="{$ImagedataIconPharmacist}" title="{nf:getLocalizedString('administrationAgreement')}"/></xsl:when>
       <xsl:when test="$componentType eq $CT_GB">
         <img src="{$ImagedataIconPatient}" title="{nf:getLocalizedString('medicationUse')}"/>
-        <xsl:if test="./@negationInd = 'true'">
+        <xsl:if test="not(nf:MedicationIsInUse(.))">    <!-- Medication not in use -->
           <img src="{$ImagedataIconStop}" title="Niet gebruikt"/>
           
         </xsl:if>
@@ -1437,7 +1457,7 @@
     </xsl:if>
     
     <!-- Show reason also if 'gebruikindicator = nee' -->
-    <xsl:if test="./@negationInd = 'true'">
+    <xsl:if test="not(nf:MedicationIsInUse($substAdmNode))">
       <xsl:if test="$substAdmNode/entryRelationship/observation[templateId/@root = '2.16.840.1.113883.2.4.3.11.60.20.77.10.9160']">
         <br />
       </xsl:if>

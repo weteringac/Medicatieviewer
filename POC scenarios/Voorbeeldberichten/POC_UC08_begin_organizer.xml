@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="file:/C:/SVN/AORTA/branches/Onderhoud_Mp_v90/XML/schematron_closed_warnings/mp-MP90_mg.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="file:/C:/SVN/AORTA/branches/Onderhoud_Mp_v90/XML/schematron_closed_warnings/mp-MP90_mg.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron" phase="#ALL"?>
 <organizer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xmlns="urn:hl7-org:v3"
            xmlns:cda="urn:hl7-org:v3"
@@ -42,6 +42,7 @@
          <text mediaType="text/plain">1x daags 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170708080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -136,7 +137,7 @@
                                classCode="SBADM"
                                moodCode="EVN"
                                negationInd="false">
-         <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9154"/>
+         <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9190"/>
          <id extension="POC_UC08_1_MBH01_GB01" root="2.2.3.4.5"/>
          <code code="6"
                displayName="Gebruik"
@@ -145,11 +146,12 @@
          <text mediaType="text/plain">1x daags 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170708080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
             <manufacturedProduct classCode="MANU">
-               <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9070"/>
+               <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9163"/>
                <manufacturedMaterial classCode="MMAT" determinerCode="KIND">
                   <name>Simvastatine</name>
                </manufacturedMaterial>
@@ -166,6 +168,15 @@
                      codeSystemName="HL7 Role code"/>
             </assignedAuthor>
          </author>
+         <entryRelationship typeCode="COMP">
+            <observation classCode="OBS" moodCode="EVN">
+               <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9189"/>
+               <code displayName="Gebruikindicator"
+                     code="15"
+                     codeSystem="2.16.840.1.113883.2.4.3.11.60.20.77.5.2"/>
+               <value xsi:type="BL" value="true"/>
+            </observation>
+         </entryRelationship>
          <entryRelationship typeCode="COMP">
             <observation classCode="OBS" moodCode="EVN">
                <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9117"/>
@@ -210,6 +221,7 @@
          <text mediaType="text/plain">1x daags 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170708080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -304,7 +316,7 @@
                                classCode="SBADM"
                                moodCode="EVN"
                                negationInd="false">
-         <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9154"/>
+         <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9190"/>
          <id extension="POC_UC08_1_MBH02_GB01" root="2.2.3.4.5"/>
          <code code="6"
                displayName="Gebruik"
@@ -313,11 +325,12 @@
          <text mediaType="text/plain">1x daags 1 tablet</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170708080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
             <manufacturedProduct classCode="MANU">
-               <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9070"/>
+               <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9163"/>
                <manufacturedMaterial classCode="MMAT" determinerCode="KIND">
                   <name>Metoprolol</name>
                </manufacturedMaterial>
@@ -334,6 +347,15 @@
                      codeSystemName="HL7 Role code"/>
             </assignedAuthor>
          </author>
+         <entryRelationship typeCode="COMP">
+            <observation classCode="OBS" moodCode="EVN">
+               <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9189"/>
+               <code displayName="Gebruikindicator"
+                     code="15"
+                     codeSystem="2.16.840.1.113883.2.4.3.11.60.20.77.5.2"/>
+               <value xsi:type="BL" value="true"/>
+            </observation>
+         </entryRelationship>
          <entryRelationship typeCode="COMP">
             <observation classCode="OBS" moodCode="EVN">
                <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9117"/>
@@ -378,6 +400,7 @@
          <text mediaType="text/plain">200 mg 1x daags verhogen</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170904080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="9" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
@@ -580,7 +603,7 @@
                                classCode="SBADM"
                                moodCode="EVN"
                                negationInd="false">
-         <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9154"/>
+         <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9190"/>
          <id extension="POC_UC08_1_MBH03_GB01" root="2.2.3.4.5"/>
          <code code="6"
                displayName="Gebruik"
@@ -589,11 +612,12 @@
          <text mediaType="text/plain">200 mg/dag 1x daags verhogen tot 1200 mg/dag</text>
          <effectiveTime xsi:type="IVL_TS">
             <low value="20170904080000"/>
+            <high nullFlavor="NI"/>
          </effectiveTime>
          <routeCode code="" codeSystem="2.16.840.1.113883.2.4.4.9" displayName="Oraal"/>
          <consumable>
             <manufacturedProduct classCode="MANU">
-               <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9070"/>
+               <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9163"/>
                <manufacturedMaterial classCode="MMAT" determinerCode="KIND">
                   <name>Carbamazepine</name>
                </manufacturedMaterial>
@@ -610,6 +634,15 @@
                      codeSystemName="HL7 Role code"/>
             </assignedAuthor>
          </author>
+         <entryRelationship typeCode="COMP">
+            <observation classCode="OBS" moodCode="EVN">
+               <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9189"/>
+               <code displayName="Gebruikindicator"
+                     code="15"
+                     codeSystem="2.16.840.1.113883.2.4.3.11.60.20.77.5.2"/>
+               <value xsi:type="BL" value="true"/>
+            </observation>
+         </entryRelationship>
          <entryRelationship typeCode="COMP">
             <observation classCode="OBS" moodCode="EVN">
                <templateId root="2.16.840.1.113883.2.4.3.11.60.20.77.10.9117"/>
