@@ -299,9 +299,11 @@
                     <xsl:when test="self::comment() | self::processing-instruction()"/>
                     <!-- DTr1 -->
                     <xsl:when test="self::hl7:family">
-                        <xsl:call-template name="util:caseUp">
+                    	<!-- AWE: No idea why family name should be uppercase -->
+                        <!--<xsl:call-template name="util:caseUp">
                             <xsl:with-param name="data" select="."/>
-                        </xsl:call-template>
+                        </xsl:call-template>-->
+                    	<xsl:value-of select="."/>
                     </xsl:when>
                     <!-- DTr2 -->
                     <xsl:when test="self::hl7:part[@type = 'FAM']">
@@ -311,9 +313,11 @@
                     </xsl:when>
                     <!-- DTr1 -->
                     <xsl:when test="self::hl7:prefix[contains(@qualifier, 'VV')]">
-                        <xsl:call-template name="util:caseUp">
+                    	<!-- AWE: No idea why voorvoegsels should be uppercase -->
+                    	<!--<xsl:call-template name="util:caseUp">
                             <xsl:with-param name="data" select="."/>
-                        </xsl:call-template>
+                        </xsl:call-template>-->
+                    	<xsl:value-of select="."/>
                         <xsl:text> </xsl:text>
                     </xsl:when>
                     <!-- DTr2 -->
