@@ -255,6 +255,20 @@
         </key>
     </translation>
     <translation>
+        <comment>Label: agreement date with start date</comment>
+        <key value="agreementDateWithStartDate">
+            <value lang="en-US">Agreement date</value>
+            <value lang="nl-NL">Afspraakdatum</value>
+        </key>
+    </translation>
+    <translation>
+        <comment>Label: registration date with start date</comment>
+        <key value="registrationDateWithStartDate">
+            <value lang="en-US">Registration date</value>
+            <value lang="nl-NL">Registratiedatum</value>
+        </key>
+    </translation>
+    <translation>
         <comment>Label: end date</comment>
         <key value="endDate">
             <value lang="en-US">End date</value>

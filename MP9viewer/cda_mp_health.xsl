@@ -1489,8 +1489,18 @@
 		<div id="debugInfo" class="hideDebugInfo">
 			<!-- if not already shown -->
 			<xsl:if test="$substAdmNode/effectiveTime/@value or $substAdmNode/effectiveTime/low">
-				<xsl:if test="$registerAuthorDate">
-					<!-- Always show the registration date if the start date is not specified -->
+				<xsl:variable name="tooltip">
+                    <xsl:choose>
+                        <xsl:when test="$componentType eq $CT_GB">
+                            <xsl:value-of select="nf:getLocalizedString('registrationDateWithStartDate')"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="nf:getLocalizedString('agreementDateWithStartDate')"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
+                <xsl:if test="$registerAuthorDate">
+					<!-- Always show the registration date if the start date is specified -->
 					<img src="{$ImagedataIconPrescribe}" height="16px" title="{$tooltip}"/>
 					<xsl:text> </xsl:text>
 					<xsl:value-of select="nf:printHl7DateTime($registerAuthorDate, true())"/>
@@ -1498,7 +1508,7 @@
 				<!-- Pre 9.04 compatibility -->
 				<xsl:if test="$registerPatientDate">
 					<!-- Always show the registration date if the start date is not specified -->
-					<img src="{$ImagedataIconPrescribe}" height="16px" title="{nf:getLocalizedString('registrationDate')}"/>
+					<img src="{$ImagedataIconPrescribe}" height="16px" title="{$tooltip}"/>
 					<xsl:text> </xsl:text>
 					<xsl:value-of select="nf:printHl7DateTime($registerPatientDate, true())"/>
 				</xsl:if>
