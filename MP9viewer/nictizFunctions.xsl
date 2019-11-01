@@ -248,19 +248,19 @@
              ‘d’ (dag), ‘wk’ (week), ‘mo’ (maand) en ‘a’ (jaar)."  -->
         <xsl:choose>
             <xsl:when test="lower-case($durationUnit) eq 'us'">
-                <xsl:value-of select="$startDate + xs:dayTimeDuration(concat('P',$durationValue div 1000000,'S'))"/>
+                <xsl:value-of select="$startDate + xs:dayTimeDuration(concat('PT',$durationValue div 1000000,'S'))"/>
             </xsl:when>
             <xsl:when test="lower-case($durationUnit) eq 'ms'">
-                <xsl:value-of select="$startDate + xs:dayTimeDuration(concat('P',$durationValue div 1000,'S'))"/>
+                <xsl:value-of select="$startDate + xs:dayTimeDuration(concat('PT',$durationValue div 1000,'S'))"/>
             </xsl:when>
             <xsl:when test="lower-case($durationUnit) eq 's'">
-                <xsl:value-of select="$startDate + xs:dayTimeDuration(concat('P',$durationValue,'S'))"/>
+                <xsl:value-of select="$startDate + xs:dayTimeDuration(concat('PT',$durationValue,'S'))"/>
             </xsl:when>
             <xsl:when test="lower-case($durationUnit) eq 'min'">
-                <xsl:value-of select="$startDate + xs:dayTimeDuration(concat('P',$durationValue,'M'))"/>
+                <xsl:value-of select="$startDate + xs:dayTimeDuration(concat('PT',$durationValue,'M'))"/>
             </xsl:when>
             <xsl:when test="lower-case($durationUnit) eq 'h'">
-                <xsl:value-of select="$startDate + xs:dayTimeDuration(concat('P',$durationValue,'H'))"/>
+                <xsl:value-of select="$startDate + xs:dayTimeDuration(concat('PT',$durationValue,'H'))"/>
             </xsl:when>
             <xsl:when test="lower-case($durationUnit) eq 'd'">
                 <xsl:value-of select="$startDate + xs:dayTimeDuration(concat('P',$durationValue,'D'))"/>

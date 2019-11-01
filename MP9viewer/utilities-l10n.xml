@@ -205,6 +205,13 @@
         </key>
     </translation>
     <translation>
+        <comment>Label: Medication Supply Request Data</comment>
+        <key value="medicationSupplyRequestData">
+            <value lang="en-US">Supply Request</value>
+            <value lang="nl-NL">Voorschrift</value>
+        </key>
+    </translation>
+    <translation>
         <comment>Label: Unsupported document type</comment>
         <key value="unsupportedDocument">
             <value lang="en-US">Unsupported Document Type</value>
@@ -411,8 +418,8 @@
     <translation>
         <comment>Label: Recently terminated medication</comment>
         <key value="recentlyTerminatedMedication">
-            <value lang="en-US">Recently terminated medication</value>
-            <value lang="nl-NL">Recent beëindigde medicatie </value>
+            <value lang="en-US">Terminated medication</value>
+            <value lang="nl-NL">Beëindigde medicatie</value>
         </key>
     </translation>
     <translation>
@@ -451,6 +458,29 @@
         </key>
     </translation>
 	
+    <translation>
+        <comment>Label: medication not in use</comment>
+        <key value="medicationNotInUse">
+            <value lang="en-US">Not in use</value>
+            <value lang="nl-NL">Niet gebruikt</value>
+        </key>
+    </translation>
+    <translation>
+        <comment>Label: supply request</comment>
+        <key value="medicationSupplyRequest">
+            <value lang="en-US">supply request</value>
+            <value lang="nl-NL">verstrekkingsverzoek</value>
+        </key>
+    </translation>
+    <translation>
+        <comment>Label: quantity to supply</comment>
+        <key value="medicationQuantityToSupply">
+            <value lang="en-US">Quantity to supply</value>
+            <value lang="nl-NL">Te verstrekken hoeveelheid</value>
+        </key>
+    </translation>
+    
+    
     <translation>
         <comment>Error Label: invalid date</comment>
         <key value="errInvalidDate">

@@ -11,7 +11,7 @@
       a table. The blocks are grouped by active status (current, future or recent past), by
       treatment group ('medicamenteuze behandeling' = MBH) and by type ('medicatieafspraak',
       'toedieningsafspraak', 'gebruik').</xd:p>
-			<xd:p>The input XML is based on the AORTA 9.0.6 specification.</xd:p>
+			<xd:p>The input XML is based on the AORTA 9.0.7 specification.</xd:p>
 			<xd:p>Note that this transformation uses XSLT (and XPATH) 2.0, which not all XML tools and browsers support.</xd:p>
 		</xd:desc>
 	</xd:doc>
@@ -22,47 +22,78 @@
         with other Art-Decor transformations.)</xd:p>
 		</xd:desc>
 	</xd:doc>
-	<xsl:output indent="yes" encoding="utf-8" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"/>
+	<!-- KeZo: output al elders gedefinieerd -->
+    <xsl:output indent="yes" encoding="utf-8" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"/>
 
 
-	<!-- For XSD schema validation in XSL Saxon-EE is required. That version is not available in Art-Decor,
-    but it is in oXygen, so the line below can be uncommented during development, but must be commented 
-    before distribution. -->
-	<!--<xsl:import-schema namespace="urn:hl7-org:v3"
-    schema-location="../SVN/Onderhoud_Mp_v90/XML/schemas_codegen/CDANL_extended.xsd"/>-->
+	<!-- For XSD schema validation in XSL Saxon-EE is required. That version is not freely available, but it is in oXygen. 
+    The line below may therefore be uncommented during development, but must be commented before distribution if Saxon-EE is not available. -->
+	<!-- The XSD schema is not included with the mp viewer distribution but can be found on the internet in the MP publication XML download, for 9.0.7:
+    https://decor.nictiz.nl/medicatieproces/mp-xml-20181220T121121.zip
+    In that zip: mp-xml-20181220T121121\schemas_codeGen\CDANL_extended.xsd-->
 
-	<xsl:include href="nictizFunctions.xsl"/>
+	<!-- include the correct path on your local device in the schema-location below if you want to do XSD schema validation in development -->
+    <!--<xsl:import-schema namespace="urn:hl7-org:v3" schema-location="../mp-xml-20181220T121121/schemas_codeGen"/CDANL_extended.xsd>-->
 
-	<!-- variables for template ids -->
+    <xsl:include href="nictizFunctions.xsl"/>
+
+	<!-- variables for template ids for building blocks -->
 	<!-- Note that there is also a MA template 9185, but that is only used for proposal messages, which this viewer doesn't support -->
-	<xsl:variable name="ma_templateId" as="xs:string*" select="'2.16.840.1.113883.2.4.3.11.60.20.77.10.9148', '2.16.840.1.113883.2.4.3.11.60.20.77.10.9202', '2.16.840.1.113883.2.4.3.11.60.20.77.10.9216'"/>
-	<xsl:variable name="ta_templateId" as="xs:string*" select="'2.16.840.1.113883.2.4.3.11.60.20.77.10.9152', '2.16.840.1.113883.2.4.3.11.60.20.77.10.9205', '2.16.840.1.113883.2.4.3.11.60.20.77.10.9223'"/>
-	<xsl:variable name="gb_templateId" as="xs:string*" select="'2.16.840.1.113883.2.4.3.11.60.20.77.10.9154', '2.16.840.1.113883.2.4.3.11.60.20.77.10.9190', '2.16.840.1.113883.2.4.3.11.60.20.77.10.9209', '2.16.840.1.113883.2.4.3.11.60.20.77.10.9224'"/>
-	<xsl:variable name="mbh_templateId" as="xs:string*" select="'2.16.840.1.113883.2.4.3.11.60.20.77.10.9084'"/>
+	<xsl:variable name="ma_templateId" as="xs:string*" select="'2.16.840.1.113883.2.4.3.11.60.20.77.10.9148', '2.16.840.1.113883.2.4.3.11.60.20.77.10.9202', '2.16.840.1.113883.2.4.3.11.60.20.77.10.9216', '2.16.840.1.113883.2.4.3.11.60.20.77.10.9233'"/>
+	<xsl:variable name="ta_templateId" as="xs:string*" select="'2.16.840.1.113883.2.4.3.11.60.20.77.10.9152', '2.16.840.1.113883.2.4.3.11.60.20.77.10.9205', '2.16.840.1.113883.2.4.3.11.60.20.77.10.9223', '2.16.840.1.113883.2.4.3.11.60.20.77.10.9256'"/>
+	<xsl:variable name="gb_templateId" as="xs:string*" select="'2.16.840.1.113883.2.4.3.11.60.20.77.10.9154', '2.16.840.1.113883.2.4.3.11.60.20.77.10.9190', '2.16.840.1.113883.2.4.3.11.60.20.77.10.9209', '2.16.840.1.113883.2.4.3.11.60.20.77.10.9224', '2.16.840.1.113883.2.4.3.11.60.20.77.10.9250'"/>
+	<xsl:variable name="vv_templateId" as="xs:string*" select="'2.16.840.1.113883.2.4.3.11.60.20.77.10.9257'"/>
+    <xsl:variable name="mbh_templateId" as="xs:string*" select="'2.16.840.1.113883.2.4.3.11.60.20.77.10.9084'"/>
 	
 	
-	<!-- Document Types enumeration  ('Constants' for the different types)
+	<!-- medicatieoverzicht -->
+	<xsl:variable name="mo_org_templateId" as="xs:string*" select="'2.16.840.1.113883.2.4.3.11.60.20.77.10.9132', '2.16.840.1.113883.2.4.3.11.60.20.77.10.9204', '2.16.840.1.113883.2.4.3.11.60.20.77.10.9245'"/>
+    <xsl:variable name="mo_cda_templateId" as="xs:string*" select="'2.16.840.1.113883.2.4.3.11.60.20.77.10.9146', '2.16.840.1.113883.2.4.3.11.60.20.77.10.9207', '2.16.840.1.113883.2.4.3.11.60.20.77.10.9243'"/>
+    <!-- medicatiegegevens -->
+    <!-- 9265 is een speciale MedGeg organizer met alleen MA's, specifiek voor VZVZ. Idem 9268 voor Medicatiegebruik -->
+    <xsl:variable name="mg_org_templateId" as="xs:string*" select="'2.16.840.1.113883.2.4.3.11.60.20.77.10.9104', '2.16.840.1.113883.2.4.3.11.60.20.77.10.9221', '2.16.840.1.113883.2.4.3.11.60.20.77.10.9239', '2.16.840.1.113883.2.4.3.11.60.20.77.10.9265', '2.16.840.1.113883.2.4.3.11.60.20.77.10.9268'"/>
+    <xsl:variable name="mg_cda_templateId" as="xs:string*" select="'2.16.840.1.113883.2.4.3.11.60.20.77.10.9133', '2.16.840.1.113883.2.4.3.11.60.20.77.10.9222', '2.16.840.1.113883.2.4.3.11.60.20.77.10.9236'"/>
+    <!-- sturen gebruik -->
+    <xsl:variable name="sg_org_templateId" as="xs:string*" select="'2.16.840.1.113883.2.4.3.11.60.20.77.10.9125', '2.16.840.1.113883.2.4.3.11.60.20.77.10.9191', '2.16.840.1.113883.2.4.3.11.60.20.77.10.9225', '2.16.840.1.113883.2.4.3.11.60.20.77.10.9252'"/>
+    <xsl:variable name="sg_cda_templateId" as="xs:string*" select="'2.16.840.1.113883.2.4.3.11.60.20.77.10.9138', '2.16.840.1.113883.2.4.3.11.60.20.77.10.9198', '2.16.840.1.113883.2.4.3.11.60.20.77.10.9227', '2.16.840.1.113883.2.4.3.11.60.20.77.10.9249'"/>
+    <!-- Voorschrift bericht -->
+    <xsl:variable name="vv_org_templateId" as="xs:string*" select="'2.16.840.1.113883.2.4.3.11.60.20.77.10.9217', '2.16.840.1.113883.2.4.3.11.60.20.77.10.9240'"/>
+    <xsl:variable name="vv_cda_templateId" as="xs:string*" select="'2.16.840.1.113883.2.4.3.11.60.20.77.10.9140', '2.16.840.1.113883.2.4.3.11.60.20.77.10.9219', '2.16.840.1.113883.2.4.3.11.60.20.77.10.9237'"/>
+        
+    <!-- stoptype -->
+    <xsl:variable name="stoptype_templateId" as="xs:string*" select="'2.16.840.1.113883.2.4.3.11.60.20.77.10.9067'"/>
+    <!-- gebruikindicator -->
+    <xsl:variable name="gebruikindicator_templateId" as="xs:string*" select="'2.16.840.1.113883.2.4.3.11.60.20.77.10.9189'"/>
+    <!-- reden medicatieafspraak -->
+    <xsl:variable name="redenma_templateId" as="xs:string*" select="'2.16.840.1.113883.2.4.3.11.60.20.77.10.9068', '2.16.840.1.113883.2.4.3.11.60.20.77.10.9270'"/>
+    <!-- reden toedieningsafspraak -->
+    <xsl:variable name="redenta_templateId" as="xs:string*" select="'2.16.840.1.113883.2.4.3.11.60.20.77.10.9083'"/>
+    <!-- reden medicatiegebruik -->
+    <xsl:variable name="redenmgb_templateId" as="xs:string*" select="'2.16.840.1.113883.2.4.3.11.60.20.77.10.9115', '2.16.840.1.113883.2.4.3.11.60.20.77.10.9271'"/>
+
+    <!-- Document Types enumeration  ('Constants' for the different types)
        for this viewer only a few types are supported:
-        MO = medication overview - srtuctured collection of components from a single source
+        MO = medication overview - structured collection of components from a single source
         MEDDATA = 'medicatie gegevens' - loose collection of components, likely from different sources 
     -->
-	<xsl:variable name="DOCTYPE_OTHER" select="0" as="xs:decimal"/>
+    <xsl:variable name="DOCTYPE_OTHER" select="0" as="xs:decimal"/>
 	<xsl:variable name="DOCTYPE_MO" select="1" as="xs:decimal"/>
 	<xsl:variable name="DOCTYPE_MEDDATA" select="2" as="xs:decimal"/>
 	<xsl:variable name="DOCTYPE_GEBRUIK" select="3" as="xs:decimal"/>
 
+	<xsl:variable name="DOCTYPE_VOORSCHRIFT" select="4" as="xs:decimal"/>
 	<!-- Component Types ('bouwsteen types') enumeration ('Constants' for the different types):
        MA = 'medicatie afspraak'       
        TA = 'toedienings afspraak'       
        GB = 'medicatiegebruik'
        (currently the viewer doesn't support the 'toediening' component type) 
-       supply = contains logistics information, that is not the focus of this viewer        
+       VV = 'verstrekkingsverzoek'        
   -->
-	<xsl:variable name="CT_UNKNOWN" select="0" as="xs:decimal"/>
+    <xsl:variable name="CT_UNKNOWN" select="0" as="xs:decimal"/>
 	<xsl:variable name="CT_MA" select="1" as="xs:decimal"/>
 	<xsl:variable name="CT_TA" select="2" as="xs:decimal"/>
 	<xsl:variable name="CT_GB" select="3" as="xs:decimal"/>
-	<xsl:variable name="CT_SUPPLY" select="10" as="xs:decimal"/>
+	<xsl:variable name="CT_VV" select="10" as="xs:decimal"/>
 
 	<!-- Table type enumeration, signifying whether the 'MBH' 
        has recently stopped being active, is currently active, or will become active in the near future.
@@ -81,7 +112,7 @@
 	<xsl:variable name="STOPTYPE_TEMP" select="1" as="xs:decimal"/>
 	<xsl:variable name="STOPTYPE_ABORT" select="2" as="xs:decimal"/>
 
-	<!-- Binary data of the 3 icons for the block types. In Art-Decor it won't work to just load icons from the current folder, and the method that works for Art-Decor doesn't automatically work when the transformation is done locally in oXygen. 
+	<!-- Binary data of the icons for the block types. In Art-Decor it won't work to just load icons from the current folder, and the method that works for Art-Decor doesn't automatically work when the transformation is done locally in oXygen. 
     Including the icon data makes the resulting html somewhat larger, but at least works in both cases.
   -->
 	<xsl:variable name="ImagedataIconCareProvider"
@@ -91,55 +122,80 @@
 	<xsl:variable name="ImagedataIconPatient"
 		select="'data:image/gif;base64,R0lGODlhEwATAPcAADGJx53F42ep20eZ1dnn8z2RzTOR1e/1+bfV6T+V1TGNz1Wd0a/P5/f7/TGNzePv9zGJy0mXzcff8TWV2Ye74UOTzZvJ6fP5+73Z7WOl0zmX2S+JyTmZ3zmT0TWT2evz+aHH49vr9TuT1bXV7U+d17PT6f///5vD4Z3H5XWv2TWT1fH3+7fV6/v9/efx9zGLyzmV2Y293/f5/TeX2zOJyT2b3z2T0d/t9zOJx5nF5U2d1T+Rze/1+z2X1zGP01mf0bHR6ePv+cnh8TeV2Ym74UWTzaXL5/f5+8Pb7Vmj2TGJyTmZ4TuT0e3z+VWf1a/T632z2TOT17nV6/39/TGLzTmX2+Ht9wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAAAAAAALAAAAAATABMABwjPAE0IHEiwoMGDCBPKkDBCyJGEBIHo8ECRhBSIJhjUoKIEAAAINRAkPLADAg4ANAAogVBkBUIEEzymRAnAAwaEATzg6JgSBw4PRhAy0KDy5M6aIg8+YAIBwNGPBT4kPLFkg8ePHEBgzJFghocZTAJAvHDDxAcgFoDwMBFkykECSRIQsSJwSggKCQS4KGhlgAIlBphEWBChgwHAJFwOzGCgqBIqkDt6nABlIBKiTj2evOpRSYcQAlMY2MxZ81UPMUy0KEKFBg4asGPPdK3gh4mAADs='"/>
 
-	<xsl:variable name="ImagedataIconMedication"
+	<xsl:variable name="ImagedataIconRefCareProvider" select="'data:image/gif;base64,R0lGODlhDwAOAPcAAAEBAeuBgcHBwd1DReVlZ/Gho+dzdfnh4e2Pj+VVV/Oxsel7e/3x8emLi+l/gd0NE+mFheNNT/35+espLelvb/O5ud85O/fT0+1/f/lFR/GvsemHif09P+tra/Glpf3t7eVfY/N7e/v39+uHh98/QeuDheFJS+1lZ/vl5fO3t/F/ge+Fhf/9/fW/wfvb2/XBw++jo+d3ee1XWfOzs+19f+2Njel/g+dRU+lxc/e7u//39+k9P+dJS/vn5+uBg+lnZ++bm+dXWel7ff3z8+uLi+t/geuFh/FLS//5+e0vM+dxcfO5u+k3N/fX1+9/f/1HSfGlqe9hYe99f/339/GDhe9naf3l5+2Fh/////nd3ffHx++jpe13d/Wzs+0/Q+dJTQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAFgALAAAAAAPAA4ABwirALEIZKAAQ4cbCTAYMUAjhw6BWIYsUXGCBxMLEQYkyUAAIkQWWHQgANFEBBUOHkFKuOChhA0DRzIogSiAxQEhOxaMIPIjSgokEAEIMPKggIQXCnp4FAhAaIgJJEyQSKCAadOrAloEWNBAhhcNWK6KFVCBAgQCPMCKbSrAgwMcXEpoWcp2iwEsNoigwAIyqAAJWFBIKeEAiIu+AgUIBKnDAYwPSyOzuJAFqMCAADs='"/>
+    <xsl:variable name="ImagedataIconRefPharmacist" select="'data:image/gif;base64,R0lGODlhEwANAPcAAAEBAYODg0FBQc/Pz2FhYSkpKTU1Nevr61FRUaWlpXFxcTs7O/n5+UtLSy8vL7e3t+Pj421tbUVFRTk5OfPz811dXa2trXt7ez8/P/39/TMzM5eXl0NDQ9nZ2WVlZS0tLTc3N+3t7ampqT09PU9PTzExMcHBweXl5W9vb19fX319ff///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAACsALAAAAAATAA0ABwiEAFcIHEiw4IAIBwoqJGiBhAYRCxV2IEFiQsKFGQg+qEACRIWIBTeQQPAhBQOQJlAEUGDAQQEBE0BEBLDCBAECC0p8MDCBw0yaNjks4DmBREEASJPWlDBiBAYHCY4mVWqCA4cJFShInbpUAIYGEEAirXlhgQMHI06IrVlBxQQNIxSEIBgQADs='"/>
+    <xsl:variable name="ImagedataIconRefPatient" select="'data:image/gif;base64,R0lGODlhEgAOAPcAAAEBAYGBgZvD4TGJx2ep20mXzdvr9TmT0bfV6T2RzTWV2fH3+zGLzevz+a/P5zGJy8ff8TmZ3zGJyVWd0ePv9zWT2aHH44e74TOR1b3Z7UWTzf39/T2b3zOJxz+V1d/t9zuT0bXV7T+RzTmX2TGNz+/1+bHR6cnh8TmZ4TOJyVmf0ePv+ZvJ6Y293////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAC4ALAAAAAASAA4ABwiUAF0IHEiwoMGDEEKcOGjQAQcJAwZwQMBQYAkRDwakGPBAw4KKCBRojDigQgaDATa4cDBiQAeXJSkWBBDABQUQDzpAfJCggUEANDcIQEEyggWCQJPS/ODCBAsTLlaoFKg0aU2BGy54IDCwKk0XGApMKIBBAoaPSL++fElywAEDSGu2jci2QguCNRl0SMGXb8QUJFQEBAA7'"/>
+    
+    <xsl:variable name="ImagedataIconMedication"
 		select="'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAABR1BMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAADAwILCwsDAwIDAwNEREAAAAAAAABEREBEREBEREAAAAAAAAAAAAAHBwZEREBEREBEREAAAAAAAABEREAAAAABAQEAAAAAAABEREABAQEQEA8AAAAAAAALCwoDAwMAAAAEBAMDAwMFBQUCAgEAAAACAgIAAAAAAAAAAAAAAAA/PzwODg0ICAgCAgIAAAAAAAACAgIiIiAFBQUAAAAAAAAAAAABAQESEhEFBQUAAAAAAAAJCQgGBgUAAAAAAAAAAAAAAAAEBAQyMi8AAAAAAAAAAAAAAAAAAAAAAAAAAAAICAcAAAAAAAABAQELCwoAAAAAAAADAwMcHBoAAAAAAAADAwMKCgkAAAACAgIDAwMYGBcAAAAAAAADAwISEhACAgIAAAAAAAABAQEAAAAEBAMAAABabf4lAAAAZnRSTlMAR5GLOIhsDxqGbgE2egEJCpsUmhINDwJWSgQWlWs3BXw6pwEErXNV/bdIEb/acSeVDklrPSr+MhrEvAyUxjm8/upjmiWP8PnqFfjGWhBnxbuKseeDGyvr0RUh4uEieJhqDHCVcRQlhauTAAAAyElEQVQYGQXBMUvDQACA0e+73CWpLXWSgFJx0E0cRBd/tLu7buKgdGxBBCWIVLEFteHO9wRAdQAAAZKqbgAiMFEtwQ0wjkCjlqDAdBLgYKQl9ClBZ4qQ/CuhJ0mX3QaO06aEnsO46LLlq2Iv7IyrFXE3ZMuwltMrvVPf9tV7vLwwAw/q+eCjoakyQLOs67mcGdIAUJLpJy6WpFgDlOemNCcv+jqNI6DE0W1omfGuoV4Rykf727ff0LVtNf+cbXO6XvN01Oacbv4BnUM+zPdO/VAAAAAASUVORK5CYII='"/>
-	<xsl:variable name="ImagedataIconPrescribe" select="'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAB7QAAAe0BDNry2gAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAE0SURBVDiNldExa5RBEIfx38QzCEaQYECw8UsErbRRCESJlW0KP4OQXpton94uTapIjAQSLAInCkIglbEStLAQxM7ib+FefHPcvejTDDu7++zMTiUxoqqu4Bjf/WUeq0lemUDhGp5gBnOYS7LUka7hHk5a6kWSg9H+AIstbuAq1tulEbexjx3cxArOCOBLkmF78RwudQSbOExyUlWXcb3bwsAYSbbO9Fi1hMOqWp30BzOTkmN8xOcW/1+Q5BNutDiqaqGqHlfVhUEneR/Pp4mqahPDtnyIZzg+FSTZxnZfNe0/4HyLs/9cgT/TGI4nu1N4ib0ewS/c7RMs42mPYAvv+gS7eN8j+IFbfYI7WBs/0GEHR1MFSXZbFVPpTOENfuLtAN/wqKoe9F1uXMRGkg9V9TrJ199+nllgrC+dAQAAAABJRU5ErkJggg=='"/>
-	<xsl:variable name="ImagedataIconStop"
+	<xsl:variable name="ImagedataIconPrescribe" select="'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAABR1BMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAADAwILCwsDAwIDAwNEREAAAAAAAABEREBEREBEREAAAAAAAAAAAAAHBwZEREBEREBEREAAAAAAAABEREAAAAABAQEAAAAAAABEREABAQEQEA8AAAAAAAALCwoDAwMAAAAEBAMDAwMFBQUCAgEAAAACAgIAAAAAAAAAAAAAAAA/PzwODg0ICAgCAgIAAAAAAAACAgIiIiAFBQUAAAAAAAAAAAABAQESEhEFBQUAAAAAAAAJCQgGBgUAAAAAAAAAAAAAAAAEBAQyMi8AAAAAAAAAAAAAAAAAAAAAAAAAAAAICAcAAAAAAAABAQELCwoAAAAAAAADAwMcHBoAAAAAAAADAwMKCgkAAAACAgIDAwMYGBcAAAAAAAADAwISEhACAgIAAAAAAAABAQEAAAAEBAMAAABabf4lAAAAZnRSTlMAR5GLOIhsDxqGbgE2egEJCpsUmhINDwJWSgQWlWs3BXw6pwEErXNV/bdIEb/acSeVDklrPSr+MhrEvAyUxjm8/upjmiWP8PnqFfjGWhBnxbuKseeDGyvr0RUh4uEieJhqDHCVcRQlhauTAAAAyElEQVQYGQXBMUvDQACA0e+73CWpLXWSgFJx0E0cRBd/tLu7buKgdGxBBCWIVLEFteHO9wRAdQAAAZKqbgAiMFEtwQ0wjkCjlqDAdBLgYKQl9ClBZ4qQ/CuhJ0mX3QaO06aEnsO46LLlq2Iv7IyrFXE3ZMuwltMrvVPf9tV7vLwwAw/q+eCjoakyQLOs67mcGdIAUJLpJy6WpFgDlOemNCcv+jqNI6DE0W1omfGuoV4Rykf727ff0LVtNf+cbXO6XvN01Oacbv4BnUM+zPdO/VAAAAAASUVORK5CYII='"/>
+	<xsl:variable name="ImagedataIconVerstrekkingsverzoek" select="'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAIpSURBVDhPfVPPTxNBGH27pW1CoDZEAioUOXAoEALWmNADxotXQ2w8mHj05sGb8T/wZvwTPMDBSEKCgQugxBOkabExvRgPeGgoYdOAJbTdH+P7Zt3NNlVe8mVnv5n3vW/ezBiu6yoCAsMwEIwDXJWTr+E4TjhrMoxYzP/5DzzXRbRcWEDIMrhbLKLJRSarU0bkZBrsE5lkEju5XFcR4WmI8oeTE5QtC9f6+pAgMWmaSMqXkWJut1bD9/NzmMyHkA4kBCu1mrpfLOrxv3B9b09Vzs6U8jzNkQi3EGMHa/U6CqUS7gwNoe15WkBvge0nqFo+PUV1aQnZgQG4wXy0g1V2sHhwoBWanY6OS9tWyj8plf7yWXELeuz2dECFNXpQODzEw+FhtKgq5/Gr3cbPRsPvhD78yOdRajbxZHRUm9nTwb39fV3darXUb3bw1bIUtraUsb2tPtXrCpubChsb6lG5rDldHqzTg2V6oCGKAai8Oj2Np5UKEI9rT3YXFvCAXkXOw78HQozzvOOJhL+Y5I+zs/h2ccFbROO4pfW5OVi2rdd2FdD4qywXR5TeZ7PIDQ7izdQU3s7M4PHYGDzmC/SAzyBSgElNchzYnPCo8GpiAvl0Grf7+7X6y/FxLKZSWB4Z0WRB6IHomvThebWKSy62GfNUfj05KdNodDpYOT7Gi0wmJAvCAoKgSBTvjo5wg560PRfPbt7qIgu6nnOA8LlyrAvKPHM9ZMPAH6IVg46qn+FKAAAAAElFTkSuQmCC'"/>
+    <xsl:variable name="ImagedataIconStop"
 		select="'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZJREFUeNpUU8tvE2cQ/+3Du3YWmyUmgVBIRCG4blVcpJQTRebQgyl1EWoqQDyaXqq2UntrqFpxQBwoEn8CEikSAjV9UFQc0UN9oBLQRGYbqvKKUGJiBfLw2l5vvM+P2SUUmE8jfTPzzes383GnEIcHwCeuv74pwwFFBqg+GBhd2JKNhQc6vc323q5p7ookziaqEB3w4YNqekOGY6y4p39ATXW+CmOiDGuuCs+2wcsS5I4k7uhT6i9/XSreSsWz18x5rUUhuRPowEx6bZg5v2OPGq26uDeuQWkYkJtNMM9HXRIxExWwrqsbXFzCyNSoThVm66an8Q9feyXjUub3tn+gypM1SD1J9F8dgrlGwYI+jflGBeZ6FZ/dvASlbwOMBxXsSKZVh3ykGJ/hPk1lqvt2H1Rjdxcg9a7CW99/iYAsvY7fcwcIHx/5wjnIaiLUX/z8WzweuYFY92pcrJR0DKTeZI+OnWPDve+zVrXGXiSLZGtJ59ke8z2fmVWdfZPYxIqb97P8xjTjbYK68d8E5OoCruQG4FDmZyRR1oDdhg3f8mDV6ziz8yOsNVvQy5MIfMMArcojyI0a5NESruc+fimINbcIz3ThuYsYzu2D8vc/SLoOFg0dFDYI4MM2DDiuRQov5Bed7ccmhGWRUHZpbBbZLbq1vNZSBaT0gioEetS3BdsKZxFZKpsMiPUkwIs8pOVx7C2ch/12BvMiB5rc8xZ4pQ3NaAzvFn4Ie/YdWi2OAye7dG+Bk3iQhKi6HJ9cHsYk7YTPCwiqD1rQrzuzUMQYxgZPhqVyAgefer6SO4RC7jDsWoOUT9v67chRKA6HfxVQu0wX1qxoHykZM3s7+GiUXRsndMvo2r4VvxJg9ugYFivTKP15FekPd+GnrwYxPnQBc6KIP5LQaZGzXH/vG7jvtjKEQzFfb1O7mw4aoouYVYcYAgvUyGE2+A8Ow1xEQHGlpJM62yNKWjiF0+3vaA7t9o9xQ7+nRJAw6ee5ApqIwIAQwI/Opo/ZSOR/5+/KghbgJz6bwvFKTPu6y8z+HDeK9MNVIIqn/BKFzl9Mm5rLloVTeCLAAAugtkxNJDycAAAAAElFTkSuQmCC'"/>
 	<xsl:variable name="ImagedataIconTempStop" select="'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAABnRSTlMA/wD/AP83WBt9AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAmElEQVQokZVSSQ7DMAhkUL+Tqmp+0f/LUe79x+RAY+ExUVRONjAL2CBp/8RD7gAkI4xedpPsfULhZbfQZ8ygkMuC71cv6cVG1hwUJGTcYPG5rIsGDOipWuGHASx5C6/FliK+2x5QC/B5QJ5yMBP4yZ5nD/MzZ0tWDq2YrEDa1cMB+LzWUgflbwVA0maHN2sl38uzJ7fWjDwAfMNcZzXriEUAAAAASUVORK5CYII='"/>
 
-	<xsl:variable name="ImagedataIconRefCareProvider"
-		select="'data:image/gif;base64,R0lGODlhDwAOAPcAAAEBAeuBgcHBwd1DReVlZ/Gho+dzdfnh4e2Pj+VVV/Oxsel7e/3x8emLi+l/gd0NE+mFheNNT/35+espLelvb/O5ud85O/fT0+1/f/lFR/GvsemHif09P+tra/Glpf3t7eVfY/N7e/v39+uHh98/QeuDheFJS+1lZ/vl5fO3t/F/ge+Fhf/9/fW/wfvb2/XBw++jo+d3ee1XWfOzs+19f+2Njel/g+dRU+lxc/e7u//39+k9P+dJS/vn5+uBg+lnZ++bm+dXWel7ff3z8+uLi+t/geuFh/FLS//5+e0vM+dxcfO5u+k3N/fX1+9/f/1HSfGlqe9hYe99f/339/GDhe9naf3l5+2Fh/////nd3ffHx++jpe13d/Wzs+0/Q+dJTQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAFgALAAAAAAPAA4ABwirALEIZKAAQ4cbCTAYMUAjhw6BWIYsUXGCBxMLEQYkyUAAIkQWWHQgANFEBBUOHkFKuOChhA0DRzIogSiAxQEhOxaMIPIjSgokEAEIMPKggIQXCnp4FAhAaIgJJEyQSKCAadOrAloEWNBAhhcNWK6KFVCBAgQCPMCKbSrAgwMcXEpoWcp2iwEsNoigwAIyqAAJWFBIKeEAiIu+AgUIBKnDAYwPSyOzuJAFqMCAADs='"/>
-	<xsl:variable name="ImagedataIconRefPharmacist"
-		select="'data:image/gif;base64,R0lGODlhEwANAPcAAAEBAYODg0FBQc/Pz2FhYSkpKTU1Nevr61FRUaWlpXFxcTs7O/n5+UtLSy8vL7e3t+Pj421tbUVFRTk5OfPz811dXa2trXt7ez8/P/39/TMzM5eXl0NDQ9nZ2WVlZS0tLTc3N+3t7ampqT09PU9PTzExMcHBweXl5W9vb19fX319ff///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAACsALAAAAAATAA0ABwiEAFcIHEiw4IAIBwoqJGiBhAYRCxV2IEFiQsKFGQg+qEACRIWIBTeQQPAhBQOQJlAEUGDAQQEBE0BEBLDCBAECC0p8MDCBw0yaNjks4DmBREEASJPWlDBiBAYHCY4mVWqCA4cJFShInbpUAIYGEEAirXlhgQMHI06IrVlBxQQNIxSEIBgQADs='"/>
-	<xsl:variable name="ImagedataIconRefPatient"
-		select="'data:image/gif;base64,R0lGODlhEgAOAPcAAAEBAYGBgZvD4TGJx2ep20mXzdvr9TmT0bfV6T2RzTWV2fH3+zGLzevz+a/P5zGJy8ff8TmZ3zGJyVWd0ePv9zWT2aHH44e74TOR1b3Z7UWTzf39/T2b3zOJxz+V1d/t9zuT0bXV7T+RzTmX2TGNz+/1+bHR6cnh8TmZ4TOJyVmf0ePv+ZvJ6Y293////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAC4ALAAAAAASAA4ABwiUAF0IHEiwoMGDEEKcOGjQAQcJAwZwQMBQYAkRDwakGPBAw4KKCBRojDigQgaDATa4cDBiQAeXJSkWBBDABQUQDzpAfJCggUEANDcIQEEyggWCQJPS/ODCBAsTLlaoFKg0aU2BGy54IDCwKk0XGApMKIBBAoaPSL++fElywAEDSGu2jci2QguCNRl0SMGXb8QUJFQEBAA7'"/>
+	<!-- Tijdsintervallen waarbinnen MBH's wel of niet getoond worden: als ze te ver in de toekomst beginnen of te lang geleden zijn gestopt worden ze genegeerd -->
+	<xsl:variable name="PERIOD_MBH_TOO_NEW" select="'P12M'"/>
+	<!-- was 2 maanden maar daarmee verouderden voorbeeldberichten te snel -->
 
-	<xd:doc>
+	<xsl:variable name="PERIOD_MBH_TOO_OLD" select="'P3M'"/>
+    <!--<!-\- KeZo: we willen alles zien -\->
+    <xsl:variable name="PERIOD_MBH_TOO_NEW" select="'P1000M'"/>  <!-\- was 2 maanden maar daarmee verouderden voorbeeldberichten te snel -\->
+    <xsl:variable name="PERIOD_MBH_TOO_OLD" select="'P1000M'"/>-->
+    
+
+    <xd:doc>
 		<xd:desc>First entry template: start at the root of the document, add the HTML header and
       footer, call the external processing for the header and generic sections,  group all
       components ('bouwstenen') by MBH, and display the groups in separate tables depending on
       whether they are, will become, or were active.</xd:desc>
 	</xd:doc>
-	<xsl:template match="/">
+	<!-- KeZo: geen 'Main' template nodig hier -->
+    <xsl:template match="/">
 		<xsl:choose>
 			<xsl:when test="hl7:MCCI_IN200101">
 				<xsl:apply-templates select="hl7:MCCI_IN200101"/>
 			</xsl:when>
-			<xsl:when test="hl7:*[hl7:interactionId]/hl7:ControlActProcess/hl7:ClinicalDocument">
-				<xsl:for-each select="hl7:QUMA_IN991203NL01/hl7:ControlActProcess/hl7:subject[hl7:ClinicalDocument]">
-					<!-- Show the most recent MO first (in case these are MO's - otherwise the sorting has no effect) -->
-					<xsl:sort select="*/effectiveTime/@value" order="descending"/>
-					<xsl:call-template name="processDocumentOrOrganizer">
-						<xsl:with-param name="doHeader" select="true()"/>
-					</xsl:call-template>
-				</xsl:for-each>
-				<!--<xsl:apply-templates select="hl7:*[hl7:interactionId]/hl7:ControlActProcess/hl7:ClinicalDocument">
-          <xsl:with-param name="doHeader" select="true()"/>
-        </xsl:apply-templates>-->
-			</xsl:when>
-			<xsl:when test="hl7:*[hl7:interactionId]/hl7:ControlActProcess/hl7:organizer">
-				<xsl:for-each select="hl7:QUMA_IN991203NL01/hl7:ControlActProcess/hl7:subject[organizer]">
-					<!-- Show the most recent MO first (in case these are MO's - otherwise the sorting has no effect) -->
-					<xsl:sort select="*/effectiveTime/@value" order="descending"/>
-					<xsl:call-template name="processDocumentOrOrganizer">
-						<xsl:with-param name="doHeader" select="true()"/>
-					</xsl:call-template>
-				</xsl:for-each>
-				<!--<xsl:apply-templates select="hl7:*[hl7:interactionId]/hl7:ControlActProcess/hl7:organizer">
-          <xsl:with-param name="doHeader" select="true()"/>
-        </xsl:apply-templates>-->
-			</xsl:when>
+			<xsl:when test="hl7:*[hl7:interactionId]/hl7:ControlActProcess/hl7:subject/hl7:ClinicalDocument">
+				<xsl:choose>
+					<xsl:when test="hl7:QUMO_IN991323NL01">
+                        <xsl:for-each select="(hl7:QUMO_IN991323NL01)/hl7:ControlActProcess/hl7:subject/hl7:ClinicalDocument">
+                            <!-- Show the most recent MO first (in case these are MO's - otherwise the sorting has no effect) -->
+                            <xsl:sort select="effectiveTime/@value" order="descending"/>
+                            <xsl:call-template name="processDocumentOrOrganizer">
+                                <xsl:with-param name="doHeader" select="true()"/>
+                            </xsl:call-template>
+                        </xsl:for-each>
+                    </xsl:when>
+					<xsl:otherwise>
+                        <xsl:for-each select="hl7:*[hl7:interactionId]/hl7:ControlActProcess/hl7:subject/hl7:ClinicalDocument">
+                            <xsl:call-template name="processDocumentOrOrganizer">
+                                <xsl:with-param name="doHeader" select="true()"/>
+                            </xsl:call-template>
+                        </xsl:for-each>
+                    </xsl:otherwise>
+					</xsl:choose>
+				</xsl:when>
+			<xsl:when test="hl7:*[hl7:interactionId]/hl7:ControlActProcess/hl7:subject/hl7:organizer">
+				<xsl:choose>
+					<xsl:when test="hl7:QUMO_IN991323NL01">
+                        <xsl:for-each select="(hl7:QUMO_IN991323NL01)/hl7:ControlActProcess/hl7:subject/organizer">
+                            <!-- Show the most recent MO first (in case these are MO's - otherwise the sorting has no effect) -->
+                            <xsl:sort select="effectiveTime/@value" order="descending"/>
+                            <xsl:call-template name="processDocumentOrOrganizer">
+                                <xsl:with-param name="doHeader" select="true()"/>
+                            </xsl:call-template>
+                        </xsl:for-each>
+                    </xsl:when>
+					<xsl:otherwise>
+                        <xsl:for-each select="hl7:*[hl7:interactionId]/hl7:ControlActProcess/hl7:subject/hl7:organizer">
+                            <xsl:call-template name="processDocumentOrOrganizer">
+                                <xsl:with-param name="doHeader" select="true()"/>
+                            </xsl:call-template>
+                        </xsl:for-each>
+                    </xsl:otherwise>
+					</xsl:choose>
+				</xsl:when>
 			<xsl:when test="hl7:ClinicalDocument | hl7:organizer">
 				<xsl:call-template name="processDocumentOrOrganizer">
 					<xsl:with-param name="doHeader" select="true()"/>
@@ -158,7 +214,7 @@
 		<html>
 			<xsl:call-template name="addHtmlHead"/>
 			<body>
-				<xsl:for-each select="hl7:QUMA_IN991203NL01/hl7:ControlActProcess/hl7:subject[hl7:ClinicalDocument or hl7:organizer]">
+				<xsl:for-each select="(hl7:QUMA_IN991203NL01 | hl7:QUMA_IN991203NL02)/hl7:ControlActProcess/hl7:subject[hl7:ClinicalDocument or hl7:organizer]">
 					<!-- Show the most recent MO first (in case these are MO's - otherwise the sorting has no effect) -->
 					<xsl:sort select="*/effectiveTime/@value" order="descending"/>
 
@@ -178,7 +234,6 @@
 		<xd:desc>Processes a single document, whether it is a complete ClinicalDocument or only an organizer.</xd:desc>
 		<xd:param name="doHeader">Whether a head-section should be added to the html: that should only be done once.</xd:param>
 	</xd:doc>
-	<!--<xsl:template match="hl7:ClinicalDocument | hl7:organizer">-->
 	<xsl:template name="processDocumentOrOrganizer">
 		<xsl:param name="doHeader" as="xs:boolean" required="yes"/>
 
@@ -187,7 +242,7 @@
 				<html>
 					<xsl:call-template name="addHtmlHead"/>
 					<body>
-						<xsl:apply-templates select="." mode="doContent"/>
+						<xsl:call-template name="doContent"/>
 
 						<!-- Comment the next line for a 'clean' version. The toggle allows adding extra and debug information to the grid. -->
 						<br/>
@@ -196,7 +251,7 @@
 				</html>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:apply-templates select="." mode="doContent"/>
+				<xsl:call-template name="doContent"/>
 				<br/>
 				<br/>
 			</xsl:otherwise>
@@ -207,118 +262,123 @@
 	<xd:doc>
 		<xd:desc>Processes the contents of a single document, whether it is a complete ClinicalDocument or only an organizer.</xd:desc>
 	</xd:doc>
-	<xsl:template match="hl7:ClinicalDocument | hl7:organizer" mode="doContent">
+	<xsl:template name="doContent">
 
-		<!-- Display in the title if it is an overview or a collection of components.  -->
-		<xsl:variable name="docType" select="nf:determineDocumentType(..)"/>
-		<div class="title">
-			<xsl:choose>
-				<xsl:when test="$docType = $DOCTYPE_MO">
-					<xsl:value-of select="upper-case(nf:getLocalizedString('medicationOverview'))"/>
-				</xsl:when>
-				<xsl:when test="$docType = $DOCTYPE_MEDDATA">
-					<xsl:value-of select="upper-case(nf:getLocalizedString('medicationData'))"/>
-				</xsl:when>
-				<xsl:when test="$docType = $DOCTYPE_GEBRUIK">
-					<xsl:value-of select="upper-case(nf:getLocalizedString('medicationUsageData'))"/>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:value-of select="upper-case(nf:getLocalizedString('unsupportedDocument'))"/>
-				</xsl:otherwise>
-			</xsl:choose>
-		</div>
+        <xsl:for-each select="//hl7:ClinicalDocument | //hl7:organizer">
 
-		<!-- header section -->
-		<xsl:call-template name="buildHeader">
-			<xsl:with-param name="isMO" select="$docType = $DOCTYPE_MO"/>
-		</xsl:call-template>
-
-		<!-- section 'algemeen' -->
-		<xsl:if test="$docType = $DOCTYPE_MO">
-			<xsl:call-template name="buildGeneral"/>
-		</xsl:if>
-
-		<xsl:variable name="curContext" select="."/>
-
-		<!-- Create a group per MBH based on the MHB id, with parameters for startDate, stopDate and target table -->
-		<xsl:variable name="mbhList" as="element()*">
-			<xsl:for-each-group select="//*[hl7:templateId[@root = $mbh_templateId]]" group-by="hl7:id/concat(@root, '#', @extension)">
-				<xsl:variable name="mbhStartDate" as="xs:dateTime" select="nf:determineMBHstartDateTime(current-group())"/>
-				<xsl:variable name="mbhStopDate" as="xs:dateTime" select="nf:determineMBHstopDate(current-group())"/>
-				<xsl:variable name="mbhTable" as="xs:decimal" select="nf:determineMBHtable($mbhStartDate, $mbhStopDate)"/>
-				<mbh id="{current-grouping-key()}" startdatum="{$mbhStartDate}" stopdatum="{$mbhStopDate}" table="{$mbhTable}"/>
-			</xsl:for-each-group>
-		</xsl:variable>
-
-		<!-- Loop over all MBS's, reverse sorted by start date and display each component -->
-
-		<!-- First the MBH's that are currently active -->
-		<h3 class="current">
-			<xsl:value-of select="nf:getLocalizedString('currentMedication')"/>
-		</h3>
-
-		<table class="current" border="1">
-			<xsl:call-template name="createTableHeader">
-				<xsl:with-param name="tableType" select="$TABLE_CURRENT"/>
-			</xsl:call-template>
-
-			<xsl:for-each select="$mbhList">
-				<xsl:sort select="@startdatum" order="descending"/>
-
-				<xsl:if test="@table = $TABLE_CURRENT">
-					<xsl:call-template name="DisplayMBH">
-						<xsl:with-param name="curContext" select="$curContext"/>
-						<xsl:with-param name="curMBH" select="@id"/>
-					</xsl:call-template>
-				</xsl:if>
-			</xsl:for-each>
-		</table>
-
-		<!-- Then the MBH's that will become active soon -->
-		<h3 class="future">
-			<xsl:value-of select="nf:getLocalizedString('futureMedication')"/>
-		</h3>
-
-		<table border="1">
-			<xsl:call-template name="createTableHeader">
-				<xsl:with-param name="tableType" select="$TABLE_FUTURE"/>
-			</xsl:call-template>
-
-			<xsl:for-each select="$mbhList">
-				<xsl:sort select="@startdatum" order="descending"/>
-
-				<xsl:if test="@table = $TABLE_FUTURE">
-					<xsl:call-template name="DisplayMBH">
-						<xsl:with-param name="curContext" select="$curContext"/>
-						<xsl:with-param name="curMBH" select="@id"/>
-					</xsl:call-template>
-				</xsl:if>
-			</xsl:for-each>
-		</table>
-
-		<!-- And finally the MBH's that have recently become inactive -->
-		<h3 class="past">
-			<xsl:value-of select="nf:getLocalizedString('recentlyTerminatedMedication')"/>
-		</h3>
-
-		<table border="1">
-			<xsl:call-template name="createTableHeader">
-				<xsl:with-param name="tableType" select="$TABLE_PAST"/>
-			</xsl:call-template>
-
-			<xsl:for-each select="$mbhList">
-				<xsl:sort select="@startdatum" order="descending"/>
-
-				<xsl:if test="@table = $TABLE_PAST">
-					<xsl:call-template name="DisplayMBH">
-						<xsl:with-param name="curContext" select="$curContext"/>
-						<xsl:with-param name="curMBH" select="@id"/>
-					</xsl:call-template>
-				</xsl:if>
-			</xsl:for-each>
-		</table>
-
-	</xsl:template>
+            <!-- Display in the title if it is an overview or a collection of components.  -->
+            <xsl:variable name="docType" select="nf:determineDocumentType(..)"/>
+            <div class="title">
+                <xsl:choose>
+                    <xsl:when test="$docType = $DOCTYPE_MO">
+                        <xsl:value-of select="upper-case(nf:getLocalizedString('medicationOverview'))"/>
+                    </xsl:when>
+                    <xsl:when test="$docType = $DOCTYPE_MEDDATA">
+                        <xsl:value-of select="upper-case(nf:getLocalizedString('medicationData'))"/>
+                    </xsl:when>
+                    <xsl:when test="$docType = $DOCTYPE_GEBRUIK">
+                        <xsl:value-of select="upper-case(nf:getLocalizedString('medicationUsageData'))"/>
+                    </xsl:when>
+                    <xsl:when test="$docType = $DOCTYPE_VOORSCHRIFT">
+                        <xsl:value-of select="upper-case(nf:getLocalizedString('medicationSupplyRequestData'))"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="upper-case(nf:getLocalizedString('unsupportedDocument'))"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </div>
+    
+            <!-- header section -->
+            <xsl:call-template name="buildHeader">
+                <xsl:with-param name="isMO" select="$docType = $DOCTYPE_MO"/>
+            </xsl:call-template>
+    
+            <!-- section 'algemeen' -->
+            <xsl:if test="$docType = $DOCTYPE_MO">
+                <xsl:call-template name="buildGeneral"/>
+            </xsl:if>
+    
+            <xsl:variable name="curContext" select="."/>
+    
+            <!-- Create a group per MBH based on the MHB id, with parameters for startDate, stopDate and target table -->
+            <xsl:variable name="mbhList" as="element()*">
+                <xsl:for-each-group select="//*[hl7:templateId[@root = $mbh_templateId]]" group-by="hl7:id/concat(@root, '#', @extension)">
+                    <xsl:variable name="mbhStartDate" as="xs:dateTime" select="nf:determineMBHstartDateTime(current-group())"/>
+                    <xsl:variable name="mbhStopDate" as="xs:dateTime" select="nf:determineMBHstopDate(current-group())"/>
+                    <xsl:variable name="mbhTable" as="xs:decimal" select="nf:determineMBHtable($mbhStartDate, $mbhStopDate)"/>
+                    <mbh id="{current-grouping-key()}" startdatum="{$mbhStartDate}" stopdatum="{$mbhStopDate}" table="{$mbhTable}"/>
+                </xsl:for-each-group>
+            </xsl:variable>
+    
+            <!-- Loop over all MBH's, reverse sorted by start date and display each component -->
+    
+            <!-- First the MBH's that are currently active -->
+            <h3 class="current">
+                <xsl:value-of select="nf:getLocalizedString('currentMedication')"/>
+            </h3>
+    
+            <table class="current" border="1">
+                <xsl:call-template name="createTableHeader">
+                    <xsl:with-param name="tableType" select="$TABLE_CURRENT"/>
+                </xsl:call-template>
+    
+                <xsl:for-each select="$mbhList">
+                    <xsl:sort select="@startdatum" order="descending"/>
+    
+                    <xsl:if test="@table = $TABLE_CURRENT">
+                        <xsl:call-template name="DisplayMBH">
+                            <xsl:with-param name="curContext" select="$curContext"/>
+                            <xsl:with-param name="curMBH" select="@id"/>
+                        </xsl:call-template>
+                    </xsl:if>
+                </xsl:for-each>
+            </table>
+    
+            <!-- Then the MBH's that will become active soon -->
+            <h3 class="future">
+                <xsl:value-of select="nf:getLocalizedString('futureMedication')"/>
+            </h3>
+    
+            <table border="1">
+                <xsl:call-template name="createTableHeader">
+                    <xsl:with-param name="tableType" select="$TABLE_FUTURE"/>
+                </xsl:call-template>
+    
+                <xsl:for-each select="$mbhList">
+                    <xsl:sort select="@startdatum" order="descending"/>
+    
+                    <xsl:if test="@table = $TABLE_FUTURE">
+                        <xsl:call-template name="DisplayMBH">
+                            <xsl:with-param name="curContext" select="$curContext"/>
+                            <xsl:with-param name="curMBH" select="@id"/>
+                        </xsl:call-template>
+                    </xsl:if>
+                </xsl:for-each>
+            </table>
+    
+            <!-- And finally the MBH's that have recently become inactive -->
+            <h3 class="past">
+                <xsl:value-of select="nf:getLocalizedString('recentlyTerminatedMedication')"/>
+            </h3>
+    
+            <table border="1">
+                <xsl:call-template name="createTableHeader">
+                    <xsl:with-param name="tableType" select="$TABLE_PAST"/>
+                </xsl:call-template>
+    
+                <xsl:for-each select="$mbhList">
+                    <xsl:sort select="@startdatum" order="descending"/>
+    
+                    <xsl:if test="@table = $TABLE_PAST">
+                        <xsl:call-template name="DisplayMBH">
+                            <xsl:with-param name="curContext" select="$curContext"/>
+                            <xsl:with-param name="curMBH" select="@id"/>
+                        </xsl:call-template>
+                    </xsl:if>
+                </xsl:for-each>
+            </table>
+        </xsl:for-each>
+    </xsl:template>
 
 
 	<xd:doc>
@@ -518,7 +578,7 @@
 		<xd:desc>
 			<xd:p>Determine which kind of content the document contains: a medication overview
         ('Medicatieoverzicht' = MO), an unstructured collection of components ('Medicatiegegevens' =
-        MEDDATA), or something else that is not recognized.</xd:p>
+        MEDDATA), a supply request (MA + VV), or something else that is not recognized.</xd:p>
 		</xd:desc>
 		<xd:param name="topNode">the location within the document. This should be the top level
       of the entire document, which contains either one or more ClinicalDocument(s) or
@@ -528,21 +588,26 @@
 		<xsl:param name="topNode" as="node()*"/>
 		<xsl:choose>
 			<xsl:when test="
-					($topNode//organizer/templateId[@root = ('2.16.840.1.113883.2.4.3.11.60.20.77.10.9132', '2.16.840.1.113883.2.4.3.11.60.20.77.10.9204')] or
-					$topNode//ClinicalDocument/templateId[@root = ('2.16.840.1.113883.2.4.3.11.60.20.77.10.9146', '2.16.840.1.113883.2.4.3.11.60.20.77.10.9207')])">
+                    ($topNode//organizer/templateId[@root = $mo_org_templateId] or
+                    $topNode//ClinicalDocument/templateId[@root = $mo_cda_templateId])">
 				<xsl:value-of select="$DOCTYPE_MO"/>
 			</xsl:when>
 			<xsl:when test="
-					($topNode//organizer/templateId[@root = ('2.16.840.1.113883.2.4.3.11.60.20.77.10.9104', '2.16.840.1.113883.2.4.3.11.60.20.77.10.9221')] or
-					$topNode//ClinicalDocument/templateId[@root = '2.16.840.1.113883.2.4.3.11.60.20.77.10.9133'])">
+                    ($topNode//organizer/templateId[@root = $mg_org_templateId] or
+                    $topNode//ClinicalDocument/templateId[@root = $mg_cda_templateId])">
 				<xsl:value-of select="$DOCTYPE_MEDDATA"/>
 			</xsl:when>
 			<xsl:when test="
-					($topNode//organizer/templateId[@root = '2.16.840.1.113883.2.4.3.11.60.20.77.10.9125'] or
-					$topNode//ClinicalDocument/templateId[@root = '2.16.840.1.113883.2.4.3.11.60.20.77.10.9138'])">
+                    ($topNode//organizer/templateId[@root = $sg_org_templateId] or
+                    $topNode//ClinicalDocument/templateId[@root = $sg_cda_templateId])">
 				<xsl:value-of select="$DOCTYPE_GEBRUIK"/>
 			</xsl:when>
-			<xsl:otherwise>
+			<xsl:when test="
+                ($topNode//organizer/templateId[@root = $vv_org_templateId] or
+                $topNode//ClinicalDocument/templateId[@root = $vv_cda_templateId])">
+                <xsl:value-of select="$DOCTYPE_VOORSCHRIFT"/>
+            </xsl:when>
+            <xsl:otherwise>
 				<xsl:value-of select="$DOCTYPE_OTHER"/>
 			</xsl:otherwise>
 		</xsl:choose>
@@ -554,7 +619,7 @@
 			<xd:p>Returns the start date (and time) of a single component. This is either the start
         date, or if not specified, the registration date.</xd:p>
 		</xd:desc>
-		<xd:param name="componentNode">The root of the component ('substanceAdministration').</xd:param>
+		<xd:param name="componentNode">The root of the component ('substanceAdministration' or 'supply').</xd:param>
 	</xd:doc>
 	<xsl:function name="nf:determineStartDateTime" as="xs:dateTime">
 		<xsl:param name="componentNode" as="node()*"/>
@@ -563,7 +628,7 @@
 		<xsl:variable name="registerAuthorDate" select="$componentNode/author/time/@value"/>
 		<!-- patient as author is also in author since 9.0.6, so variable below is only kept for backwards compatibility reasons -->
 		<xsl:variable name="registerPatientDate" select="$componentNode/participant[@typeCode = 'AUT' and participantRole/@classCode = 'PAT']/time/@value"/>
-		<xsl:variable name="isStop" as="xs:boolean" select="exists($componentNode/entryRelationship/observation[templateId/@root = '2.16.840.1.113883.2.4.3.11.60.20.77.10.9067'])"/>
+		<xsl:variable name="isStop" as="xs:boolean" select="exists($componentNode/entryRelationship/observation[templateId/@root = $stoptype_templateId])"/>
 
 		<xsl:choose>
 			<xsl:when test="$startDate and not($isStop)">
@@ -610,10 +675,10 @@
 		</xd:desc>
 
 		<xd:param name="componentNode">
-			<xd:p>The root of the component ('substanceAdministration').</xd:p>
+			<xd:p>The root of the component ('substanceAdministration' or 'supply').</xd:p>
 		</xd:param>
 		<xd:param name="componentType">
-			<xd:p>The type of the component we're looking for ('ma', 'ta' or 'gb').</xd:p>
+			<xd:p>The type of the component we're looking for ('ma', 'ta', 'gb', or 'vv').</xd:p>
 		</xd:param>
 	</xd:doc>
 	<xsl:function name="nf:determineMostRecentComponent" as="xs:dateTime?">
@@ -639,7 +704,13 @@
 						<xsl:value-of select="nf:determineStartDateTime(.)"/>
 					</xsl:for-each>
 				</xsl:when>
-			</xsl:choose>
+			<xsl:when test="$componentType eq $CT_VV">
+                    <xsl:for-each select="
+                        $componentNode[hl7:templateId/@root = $vv_templateId]">
+                        <xsl:value-of select="nf:determineStartDateTime(.)"/>
+                    </xsl:for-each>
+                </xsl:when>
+            </xsl:choose>
 		</xsl:variable>
 
 		<xsl:choose>
@@ -671,7 +742,7 @@
 			<xsl:for-each select="$curGroup">
 
 				<xsl:variable name="componentType" select="nf:determineComponentType(../..)" as="xs:decimal"/>
-				<xsl:if test="($componentType eq $CT_MA) or ($componentType eq $CT_TA) or ($componentType eq $CT_GB)">
+				<xsl:if test="($componentType eq $CT_MA) or ($componentType eq $CT_TA) or ($componentType eq $CT_GB)  or ($componentType eq $CT_VV)">
 					<xsl:variable name="startDate" select="../../effectiveTime/low/@value"/>
 					<xsl:variable name="registerDate" select="../../author/time/@value"/>
 					<xsl:choose>
@@ -701,15 +772,15 @@
 
 	<xd:doc>
 		<xd:desc>Returns if the medication is in use (for MedicatieGebruik)</xd:desc>
-		<xd:param name="substAdmNode">substanceAdministration node (root of the component) </xd:param>
+		<xd:param name="substAdmNode">substanceAdministration/supply node (root of the component) </xd:param>
 	</xd:doc>
 	<xsl:function name="nf:MedicationIsInUse" as="xs:boolean">
 		<xsl:param name="substAdmNode" as="node()*"/>
 
 		<xsl:choose>
 			<!-- MP 9.05 and higher -->
-			<xsl:when test="$substAdmNode/entryRelationship/observation[templateId/@root = '2.16.840.1.113883.2.4.3.11.60.20.77.10.9189']/value/@value">
-				<xsl:value-of select="xs:boolean($substAdmNode/entryRelationship/observation[templateId/@root = '2.16.840.1.113883.2.4.3.11.60.20.77.10.9189']/value/@value)"/>
+			<xsl:when test="$substAdmNode/entryRelationship/observation[templateId/@root = $gebruikindicator_templateId]/value/@value">
+				<xsl:value-of select="xs:boolean($substAdmNode/entryRelationship/observation[templateId/@root = $gebruikindicator_templateId]/value/@value)"/>
 			</xsl:when>
 			<!-- MP 9.04 and earlier -->
 			<xsl:when test="$substAdmNode/@negationInd">
@@ -725,7 +796,7 @@
 	<xd:doc>
 		<xd:desc>
 			<xd:p>Returns the stop date and time of the group. This is the last stop or end dateTime of
-        its most recent MA, TA or GB. (But GB's with no end date won't count, since those are often
+        its most recent MA, TA, GB, or VV. (But GB's with no end date won't count, since those are often
         not explicitly stopped.) If the most recent MA or TA is not stopped or ended, or temporarily
         paused, it will return nfFutureDateTime.  (Temporarily paused medication is still active.)
         If no valid end dates are found, nfFutureDateTime is returned.</xd:p>
@@ -739,18 +810,22 @@
 		<xsl:variable name="mostRecentTAdateTime" select="nf:determineMostRecentComponent($CT_TA, $curGroup/../..)" as="xs:dateTime?"/>
 		<xsl:variable name="mostRecentGBdateTime" select="nf:determineMostRecentComponent($CT_GB, $curGroup/../..)" as="xs:dateTime?"/>
 
-		<xsl:variable name="mostRecentMA" select="$curGroup/../..[nf:determineComponentType(.) eq $CT_MA][nf:determineStartDateTime(.) eq $mostRecentMAdateTime]"/>
+		<xsl:variable name="mostRecentVVdateTime" select="nf:determineMostRecentComponent($CT_VV, $curGroup/../..)" as="xs:dateTime?"/>
+        
+        <xsl:variable name="mostRecentMA" select="$curGroup/../..[nf:determineComponentType(.) eq $CT_MA][nf:determineStartDateTime(.) eq $mostRecentMAdateTime]"/>
 		<xsl:variable name="mostRecentTA" select="$curGroup/../..[nf:determineComponentType(.) eq $CT_TA][nf:determineStartDateTime(.) eq $mostRecentTAdateTime]"/>
 		<xsl:variable name="mostRecentGB" select="$curGroup/../..[nf:determineComponentType(.) eq $CT_GB][nf:determineStartDateTime(.) eq $mostRecentGBdateTime]"/>
 
-		<xsl:variable name="mbhStopDates" as="xs:dateTime*">
-			<!-- only use most recent MA, TA and GB for determining the enddate -->
-			<xsl:for-each select="$mostRecentMA | $mostRecentTA | $mostRecentGB">
+		<xsl:variable name="mostRecentVV" select="$curGroup/../..[nf:determineComponentType(.) eq $CT_VV][nf:determineStartDateTime(.) eq $mostRecentVVdateTime]"/>
+
+        <xsl:variable name="mbhStopDates" as="xs:dateTime*">
+			<!-- only use most recent MA, TA, GB and VV for determining the enddate -->
+			<xsl:for-each select="$mostRecentMA | $mostRecentTA | $mostRecentGB | $mostRecentVV">
 				<xsl:variable name="componentType" select="nf:determineComponentType(.)" as="xs:decimal"/>
 
 				<xsl:variable name="startDate" select="nf:determineStartDateTime(.)" as="xs:dateTime"/>
 				<xsl:variable name="stopDate" select="./effectiveTime/high/@value"/>
-				<xsl:variable name="stopType" select="./entryRelationship/observation[templateId/@root = '2.16.840.1.113883.2.4.3.11.60.20.77.10.9067']/value/@code"/>
+				<xsl:variable name="stopType" select="./entryRelationship/observation[templateId/@root = $stoptype_templateId]/value/@code"/>
 				<xsl:variable name="durationValue" select="./effectiveTime/width/@value"/>
 				<xsl:variable name="durationUnit" select="./effectiveTime/width/@unit"/>
 
@@ -782,7 +857,7 @@
 
 				<xsl:variable name="startDate" select="nf:determineStartDateTime(../..)" as="xs:dateTime"/>
 				<xsl:variable name="stopDate" select="../../effectiveTime/high/@value"/>
-				<xsl:variable name="stopType" select="../../entryRelationship/observation[templateId/@root = '2.16.840.1.113883.2.4.3.11.60.20.77.10.9067']/value/@code"/>
+				<xsl:variable name="stopType" select="../../entryRelationship/observation[templateId/@root = $stoptype_templateId]/value/@code"/>
 				<xsl:variable name="durationValue" select="../../effectiveTime/width/@value"/>
 				<xsl:variable name="durationUnit" select="../../effectiveTime/width/@unit"/>
 
@@ -857,39 +932,33 @@
 		<xsl:param name="mbhStopDate" as="xs:dateTime"/>
 
 		<xsl:choose>
-			<!-- Temporary patch to display old MBH's for 12 months instead of 2:
-           currently many test messages get outdated too quickly. 
-        -->
-			<!-- if stop is more than 2 months before now: don't show -->
+			<!-- if stop is more than m months before now: don't show -->
 			<xsl:when test="
-					$mbhStopDate ne $nfFutureDateTime and
-					$mbhStopDate lt current-dateTime() - xs:yearMonthDuration('P12M')">
+                    $mbhStopDate ne $nfFutureDateTime and
+                    $mbhStopDate lt current-dateTime() - xs:yearMonthDuration($PERIOD_MBH_TOO_OLD)">
 				<xsl:value-of select="$TABLE_NONE"/>
 			</xsl:when>
 
-			<!-- Temporary patch to display old MBH's for 12 months instead of 2:
-           currently many test messages get outdated too quickly. 
-        -->
-			<!-- if stop is before now but less than 2 months before now: show as recently stopped -->
+			<!-- if stop is before now but less than m months before now: show as recently stopped -->
 			<xsl:when test="
-					$mbhStopDate ne $nfInvalidDateTime and
-					$mbhStopDate lt current-dateTime() and
-					$mbhStopDate gt current-dateTime() - xs:yearMonthDuration('P12M')">
+                    $mbhStopDate ne $nfInvalidDateTime and
+                    $mbhStopDate lt current-dateTime() and
+                    $mbhStopDate gt current-dateTime() - xs:yearMonthDuration($PERIOD_MBH_TOO_OLD)">
 				<xsl:value-of select="$TABLE_PAST"/>
 			</xsl:when>
 
-			<!-- if start is more than 3 months after now: don't show -->
+			<!-- if start is more than n months after now: don't show -->
 			<xsl:when test="
-					$mbhStartDate ne $nfInvalidDateTime and
-					$mbhStartDate gt current-dateTime() + xs:yearMonthDuration('P3M')">
+                    $mbhStartDate ne $nfInvalidDateTime and
+                    $mbhStartDate gt current-dateTime() + xs:yearMonthDuration($PERIOD_MBH_TOO_NEW)">
 				<xsl:value-of select="$TABLE_NONE"/>
 			</xsl:when>
 
-			<!-- if start is later than now but less than 3 months after now: show as future -->
+			<!-- if start is later than now but less than n months after now: show as future -->
 			<xsl:when test="
-					$mbhStartDate ne $nfInvalidDateTime and
-					$mbhStartDate gt current-dateTime() and
-					$mbhStartDate lt current-dateTime() + xs:yearMonthDuration('P3M')">
+                    $mbhStartDate ne $nfInvalidDateTime and
+                    $mbhStartDate gt current-dateTime() and
+                    $mbhStartDate lt current-dateTime() + xs:yearMonthDuration($PERIOD_MBH_TOO_NEW)">
 				<xsl:value-of select="$TABLE_FUTURE"/>
 			</xsl:when>
 			<xsl:otherwise>
@@ -946,11 +1015,10 @@
 
 	<xd:doc>
 		<xd:desc>Add table lines for all components of the given group (MBH), grouped by component
-      type (order: ma, ta, gb), with the most recent on top and the history not visible
+      type (order: ma, ta, gb, vv), with the most recent on top and the history not visible
       (collapsed).</xd:desc>
 		<xd:param name="curContext">The current location in the document. Because of wildcards the exact
-      location is not really relevant, as long as it is higher than substanceAdministration
-      level.</xd:param>
+      location is not really relevant, as long as it is higher than substanceAdministration/supply level.</xd:param>
 		<xd:param name="curMBH">The current group (MBH).</xd:param>
 	</xd:doc>
 	<xsl:template name="DisplayMBH">
@@ -989,16 +1057,21 @@
 		<xsl:variable name="mostRecentMAdateTime" select="nf:determineMostRecentComponent($CT_MA, $mbhContent)" as="xs:dateTime?"/>
 		<xsl:variable name="mostRecentTAdateTime" select="nf:determineMostRecentComponent($CT_TA, $mbhContent)" as="xs:dateTime?"/>
 		<xsl:variable name="mostRecentGBdateTime" select="nf:determineMostRecentComponent($CT_GB, $mbhContent)" as="xs:dateTime?"/>
-		<xsl:variable name="firstComponentType" select="
-				if ($mostRecentMAdateTime ne $nfInvalidDateTime) then
-					$CT_MA
-				else
-					if ($mostRecentTAdateTime ne $nfInvalidDateTime) then
-						$CT_TA
-					else
-						$CT_GB"/>
+		<xsl:variable name="mostRecentVVdateTime" select="nf:determineMostRecentComponent($CT_VV, $mbhContent)" as="xs:dateTime?"/>
 
-		<!-- Display all MA's, except those that are nullified -->
+		<xsl:variable name="firstComponentType" select="
+                if ($mostRecentMAdateTime ne $nfInvalidDateTime) then
+                    $CT_MA
+                else
+                    if ($mostRecentTAdateTime ne $nfInvalidDateTime) then
+                        $CT_TA
+                    else
+                        if ($mostRecentGBdateTime ne $nfInvalidDateTime) then
+                            $CT_GB
+                        else 
+                            $CT_VV"/>
+
+        <!-- Display all MA's, except those that are nullified -->
 		<xsl:variable name="MAofMBH" select="$mbhContent[hl7:templateId[@root = $ma_templateId] and not(hl7:statusCode[@code = 'nullified'])]"/>
 		<xsl:for-each select="$MAofMBH">
 			<xsl:sort select="nf:determineStartDateTime(.)" order="descending"/>
@@ -1039,7 +1112,21 @@
 				<xsl:with-param name="substAdmNode" select="."/>
 			</xsl:call-template>
 		</xsl:for-each>
-	</xsl:template>
+	<!-- Display all VV's -->
+        <xsl:variable name="VVofMBH" select="$mbhContent[hl7:templateId[@root = $vv_templateId]]"/>
+        <xsl:for-each select="$VVofMBH">
+            <xsl:sort select="nf:determineStartDateTime(.)" order="descending"/>
+            <xsl:call-template name="displayComponent">
+                <xsl:with-param name="curMBHid" select="$curMBH"/>
+                <xsl:with-param name="nrComponentsOfMBH" select="$nrComponentsOfMBH"/>
+                <xsl:with-param name="nrComponentsOfType" select="count($VVofMBH)"/>
+                <xsl:with-param name="isFirstComponentOfMBH" select="($firstComponentType eq $CT_VV) and (position() eq 1)"/>
+                <xsl:with-param name="isFirstComponentOfType" select="position() eq 1"/>
+                <xsl:with-param name="substAdmNode" select="."/>
+            </xsl:call-template>
+        </xsl:for-each>
+        
+    </xsl:template>
 
 
 	<xd:doc>
@@ -1057,7 +1144,7 @@
       to be displayed.</xd:param>
 		<xd:param name="isFirstComponentOfType">True if the component is the first component of the type
       to be displayed.</xd:param>
-		<xd:param name="substAdmNode">The SubstanceAdministration node of the current component</xd:param>
+		<xd:param name="substAdmNode">The SubstanceAdministration/supply node of the current component</xd:param>
 	</xd:doc>
 	<xsl:template name="displayComponent">
 		<xsl:param name="curMBHid" as="xs:string"/>
@@ -1070,8 +1157,8 @@
 
 		<xsl:variable name="componentType" select="nf:determineComponentType(.)"/>
 		<xsl:variable name="isStop" as="xs:boolean" select="
-				exists($substAdmNode/entryRelationship/observation[templateId/@root = '2.16.840.1.113883.2.4.3.11.60.20.77.10.9067']) or
-				not(nf:MedicationIsInUse($substAdmNode))"/>
+                exists($substAdmNode/entryRelationship/observation[templateId/@root = $stoptype_templateId]) or
+                not(nf:MedicationIsInUse($substAdmNode))"/>
 		<!-- if there is a stoptype, or medication in use indicator is false -->
 
 		<xsl:variable name="isDeviatingGB" as="xs:boolean" select="
@@ -1092,7 +1179,7 @@
 				<xsl:if test="($nrComponentsOfMBH gt 1)">
 					<xsl:choose>
 						<xsl:when test="$isFirstComponentOfMBH">
-							<button style="width:28px" onclick="ToggleMBH(this)">
+							<button style="width:28px" onclick="ToggleMBH(this)" class="collapsibleMBH">
 								<!--  <!-\- Show that one or more of the collapsed lines deviate from the MA -/->
                 <xsl:attribute name="style">
                   <xsl:if test="$hasDeviatingComponent">; background-color:lightblue</xsl:if>
@@ -1117,7 +1204,7 @@
 				<xsl:if test="($nrComponentsOfType gt 1)">
 					<xsl:choose>
 						<xsl:when test="$isFirstComponentOfType">
-							<button style="width:28px; display:none" onclick="ToggleID(this)">
+							<button style="width:28px; display:none" onclick="ToggleID(this)" class="collapsibleID">
 								<!--  <!-\- Show that one or more of the collapsed lines deviate from the MA -/->
                   <xsl:attribute name="style">
                     <xsl:if test="$hasDeviatingComponent">; background-color:lightblue</xsl:if>
@@ -1194,8 +1281,8 @@
 	</xsl:template>
 
 	<xd:doc>
-		<xd:desc>Returns the component type of the current component (MA, TA or GB).</xd:desc>
-		<xd:param name="substAdmNode">The location of the component in the document, at substanceAdministration level.</xd:param>
+		<xd:desc>Returns the component type of the current component (MA, TA, GB, or VV).</xd:desc>
+		<xd:param name="substAdmNode">The location of the component in the document, at substanceAdministration/supply level.</xd:param>
 	</xd:doc>
 	<xsl:function name="nf:determineComponentType" as="xs:decimal">
 		<xsl:param name="substAdmNode" as="node()"/>
@@ -1211,10 +1298,9 @@
 				<xsl:when test="$substAdmNode/templateId/@root = $gb_templateId">
 					<xsl:value-of select="$CT_GB"/>
 				</xsl:when>
-				<!-- We're not really interested in supply components here, so just throw them on a big heap. -->
-				<xsl:when test="$substAdmNode/supply">
-					<xsl:value-of select="$CT_SUPPLY"/>
-				</xsl:when>
+				<xsl:when test="$substAdmNode/templateId/@root = $vv_templateId">
+                    <xsl:value-of select="$CT_VV"/>
+                </xsl:when>
 				<xsl:otherwise>
 					<xsl:value-of select="$CT_UNKNOWN"/>
 				</xsl:otherwise>
@@ -1226,7 +1312,7 @@
 	<xd:doc>
 		<xd:desc>Returns html for displaying the icon (or text) that represents the component
       type.</xd:desc>
-		<xd:param name="componentType">MA, TA or GB</xd:param>
+		<xd:param name="componentType">MA, TA, GB or VV</xd:param>
 	</xd:doc>
 	<xsl:template name="getComponentTypeIcon">
 		<xsl:param name="componentType" as="xs:decimal"/>
@@ -1242,11 +1328,13 @@
 				<img src="{$ImagedataIconPatient}" title="{nf:getLocalizedString('medicationUse')}"/>
 				<xsl:if test="not(nf:MedicationIsInUse(.))">
 					<!-- Medication not in use -->
-					<img src="{$ImagedataIconStop}" title="Niet gebruikt"/>
+					<img src="{$ImagedataIconStop}" title="{nf:getLocalizedString('medicationNotInUse')}"/>
 
 				</xsl:if>
 			</xsl:when>
-			<xsl:when test="$componentType eq $CT_SUPPLY">SPLY</xsl:when>
+			<xsl:when test="$componentType eq $CT_VV">
+                <img src="{$ImagedataIconVerstrekkingsverzoek}" title="{nf:getLocalizedString('medicationSupplyRequest')}"/>
+            </xsl:when>
 			<xsl:when test="$componentType eq $CT_UNKNOWN">??</xsl:when>
 		</xsl:choose>
 	</xsl:template>
@@ -1260,24 +1348,26 @@
 
 		<!-- Since either the G-standard code, or the name (for composite = 'magistraal') is filled, 
          just display both and the relevant one will appear. -->
-		<xsl:value-of select="$substAdmNode/consumable/manufacturedProduct/manufacturedMaterial/code/@displayName"/>
-		<xsl:value-of select="$substAdmNode/consumable/manufacturedProduct/manufacturedMaterial/name"/>
+		<!-- For therapeutic blocks the element is <consumable>, for supply it is <product> -->
+		<xsl:value-of select="$substAdmNode/(consumable | product)/manufacturedProduct/manufacturedMaterial/code/@displayName"/>
 
-		<div id="debugInfo" class="hideDebugInfo">
-			<xsl:if test="$substAdmNode/consumable/manufacturedProduct/manufacturedMaterial/pharm:desc">
+		<xsl:value-of select="$substAdmNode/(consumable | product)/manufacturedProduct/manufacturedMaterial/name"/>
+
+        <div id="debugInfo" class="hideDebugInfo">
+			<xsl:if test="$substAdmNode/(consumable | product)/manufacturedProduct/manufacturedMaterial/pharm:desc">
 				<br/>
 			</xsl:if>
-			<xsl:value-of select="$substAdmNode/consumable/manufacturedProduct/manufacturedMaterial/pharm:desc"/>
+			<xsl:value-of select="$substAdmNode/(consumable | product)/manufacturedProduct/manufacturedMaterial/pharm:desc"/>
 		</div>
 	</xsl:template>
 
 
 	<xd:doc>
 		<xd:desc>
-      Displays an icon if a reference is present to either MA, TA or GB outside the own MBH. 
+      Displays an icon if a reference is present to either MA, TA or GB outside the own MBH. (There are no references to 'VV' (yet?))
       The tooltip shows the medication name of the referred component.
     </xd:desc>
-		<xd:param name="substAdmNode">The location of the component in the document, at substanceAdministration level.</xd:param>
+		<xd:param name="substAdmNode">The location of the component in the document, at substanceAdministration/supply level.</xd:param>
 	</xd:doc>
 	<xsl:template name="showReferences">
 		<xsl:param name="substAdmNode" as="node()"/>
@@ -1352,8 +1442,8 @@
 	<xd:doc>
 		<xd:desc>Returns the start date of the component in the current context. If no start date is
       specified, it shows the registration date with corresponding icon.</xd:desc>
-		<xd:param name="componentType">MA, TA or GB</xd:param>
-		<xd:param name="substAdmNode">The location of the component in the document, at substanceAdministration level.</xd:param>
+		<xd:param name="componentType">MA, TA, GB, or VV</xd:param>
+		<xd:param name="substAdmNode">The location of the component in the document, at substanceAdministration/supply level.</xd:param>
 	</xd:doc>
 	<xsl:template name="getMedicationStartDate">
 		<xsl:param name="componentType"/>
@@ -1420,7 +1510,7 @@
 	<xd:doc>
 		<xd:desc>Returns the end date, or if not specified the duration (+unit) of the component in the
       current context.</xd:desc>
-		<xd:param name="substAdmNode">The location of the component in the document, at substanceAdministration level.</xd:param>
+		<xd:param name="substAdmNode">The location of the component in the document, at substanceAdministration/supply level.</xd:param>
 	</xd:doc>
 	<xsl:template name="getMedicationEndDateOrDuration">
 		<xsl:param name="substAdmNode" as="node()"/>
@@ -1433,13 +1523,17 @@
 				<xsl:value-of select="concat($substAdmNode/effectiveTime/width/@value, ' ', $substAdmNode/effectiveTime/width/@unit)"/>
 			</xsl:when>
 
-			<!-- otherwise: just leave empty -->
+			<!-- For suppy request: show the expected use time -->
+            <xsl:when test="$substAdmNode/expectedUseTime">
+                <xsl:value-of select="concat($substAdmNode/expectedUseTime/width/@value, ' ', $substAdmNode/expectedUseTime/width/@unit)"/>
+            </xsl:when>
+            <!-- otherwise: just leave empty -->
 		</xsl:choose>
 	</xsl:template>
 
 	<xd:doc>
 		<xd:desc>Returns the dosage instructions of the component in the current context.</xd:desc>
-		<xd:param name="substAdmNode">The location of the component in the document, at substanceAdministration level.</xd:param>
+		<xd:param name="substAdmNode">The location of the component in the document, at substanceAdministration/supply level.</xd:param>
 	</xd:doc>
 	<xsl:template name="getMedicationDosage">
 		<xsl:param name="substAdmNode" as="node()"/>
@@ -1453,11 +1547,24 @@
 				<xsl:value-of select="./code/originalText"/>
 			</xsl:for-each>
 		</div>
-	</xsl:template>
+	<!-- For suppy request: show the supplied quantity -->
+        <xsl:if test="$substAdmNode/../supply">
+            <xsl:variable name="hl7Quantity" as="node()">
+                <xsl:choose>
+                    <xsl:when test="$substAdmNode/quantity/translation"><xsl:copy-of select="$substAdmNode/quantity/translation"/></xsl:when>
+                    <xsl:when test="$substAdmNode/quantity"><xsl:copy-of select="$substAdmNode/quantity"/></xsl:when>
+                </xsl:choose>
+            </xsl:variable>
+            <xsl:value-of select="nf:getLocalizedString('medicationQuantityToSupply')"/>: 
+            <xsl:value-of select="$hl7Quantity/@value"/>
+            <xsl:text> </xsl:text>
+            <xsl:value-of select="$hl7Quantity/@displayName"/>
+        </xsl:if>
+    </xsl:template>
 
 	<xd:doc>
 		<xd:desc>Returns the route ('toedieningsweg') of the component in the current context.</xd:desc>
-		<xd:param name="substAdmNode">The location of the component in the document, at substanceAdministration level.</xd:param>
+		<xd:param name="substAdmNode">The location of the component in the document, at substanceAdministration/supply level.</xd:param>
 	</xd:doc>
 	<xsl:template name="getMedicationRoute">
 		<xsl:param name="substAdmNode" as="node()"/>
@@ -1469,7 +1576,7 @@
 		<xd:desc>Returns the reason(s) for the component in the current context. This can contain the
       reason for prescribing, the reason for a pause, and/or the reason for aborting the
       prescription/administration/use.</xd:desc>
-		<xd:param name="substAdmNode">The location of the component in the document, at substanceAdministration level.</xd:param>
+		<xd:param name="substAdmNode">The location of the component in the document, at substanceAdministration/supply level.</xd:param>
 	</xd:doc>
 	<xsl:template name="getMedicationReason">
 		<xsl:param name="substAdmNode" as="node()"/>
@@ -1482,12 +1589,14 @@
 			<!-- 'reden van voorschrijven' can appear in 2 places -->
 			<xsl:value-of select="$substAdmNode/entryRelationship/observation[templateId/@root = '2.16.840.1.113883.2.4.3.11.60.20.77.10.9160']/value/@displayName"/>
 			<xsl:value-of select="$substAdmNode/entryRelationship/observation[templateId/@root = '2.16.840.1.113883.2.4.3.11.60.20.77.10.9160']/value/originalText"/>
-		</xsl:if>
+		<xsl:text>
+</xsl:text>
+        </xsl:if>
 
 		<!-- If additional information is shown, also show TA 'Reden afspraak', unless it is a stop - then that reason is already shown below -->
 		<div id="debugInfo" class="hideDebugInfo">
-			<xsl:if test="not(exists($substAdmNode/entryRelationship/observation[templateId/@root = '2.16.840.1.113883.2.4.3.11.60.20.77.10.9067']))">
-				<xsl:value-of select="$substAdmNode/entryRelationship/observation[templateId/@root = '2.16.840.1.113883.2.4.3.11.60.20.77.10.9083']/text"/>
+			<xsl:if test="not(exists($substAdmNode/entryRelationship/observation[templateId/@root = $stoptype_templateId]))">
+				<xsl:value-of select="$substAdmNode/entryRelationship/observation[templateId/@root = $redenta_templateId]/text"/>
 			</xsl:if>
 		</div>
 
@@ -1497,13 +1606,13 @@
 		</xsl:if>
 
 		<xsl:if test="
-				$substAdmNode/entryRelationship/observation[templateId/@root = '2.16.840.1.113883.2.4.3.11.60.20.77.10.9160'] and
-				$substAdmNode/entryRelationship/observation[templateId/@root = '2.16.840.1.113883.2.4.3.11.60.20.77.10.9067']">
+                $substAdmNode/entryRelationship/observation[templateId/@root = '2.16.840.1.113883.2.4.3.11.60.20.77.10.9160'] and
+                $substAdmNode/entryRelationship/observation[templateId/@root = $stoptype_templateId]">
 			<br/>
 		</xsl:if>
-		<!-- 'reden van staken': found in 'reden van afspraak' different locations for ma, ta and gb. -->
-		<xsl:if test="$substAdmNode/entryRelationship/observation[templateId/@root = '2.16.840.1.113883.2.4.3.11.60.20.77.10.9067']">
-			<xsl:variable name="stopType" select="$substAdmNode/entryRelationship/observation[templateId/@root = '2.16.840.1.113883.2.4.3.11.60.20.77.10.9067']/value/@code" as="xs:decimal?"/>
+		<!-- 'reden van wijzigen of staken': different locations for ma, ta and gb. -->
+		<xsl:if test="$substAdmNode/entryRelationship/observation[templateId/@root = $stoptype_templateId]">
+			<xsl:variable name="stopType" select="$substAdmNode/entryRelationship/observation[templateId/@root = $stoptype_templateId]/value/@code" as="xs:decimal?"/>
 
 			<xsl:choose>
 				<xsl:when test="$stopType eq $STOPTYPE_TEMP">
@@ -1514,16 +1623,16 @@
 				</xsl:otherwise>
 			</xsl:choose>
 
-			<xsl:text> </xsl:text>
 			<!-- Whitespace between icon and text -->
-			<xsl:value-of select="$substAdmNode/entryRelationship/observation[templateId/@root = '2.16.840.1.113883.2.4.3.11.60.20.77.10.9068']/value/@displayName"/>
-			<xsl:value-of select="$substAdmNode/entryRelationship/observation[templateId/@root = '2.16.840.1.113883.2.4.3.11.60.20.77.10.9083']/text"/>
-			<xsl:value-of select="$substAdmNode/entryRelationship/observation[templateId/@root = '2.16.840.1.113883.2.4.3.11.60.20.77.10.9115']/value/@displayName"/>
-		</xsl:if>
+			<xsl:text> </xsl:text>
+			</xsl:if>
 
 
-		<!-- reden stoppen/wijzigen gebruik -->
-		<xsl:value-of select="$substAdmNode/entryRelationship/observation[templateId/@root = '2.16.840.1.113883.2.4.3.11.60.20.77.10.9115']/value/@displayName"/>
+		<xsl:value-of select="$substAdmNode/entryRelationship/observation[templateId/@root = $redenma_templateId]/value/@displayName"/>
+        <xsl:value-of select="$substAdmNode/entryRelationship/observation[templateId/@root = $redenta_templateId]/text"/>
+        <xsl:value-of select="$substAdmNode/entryRelationship/observation[templateId/@root = $redenmgb_templateId]/value/@displayName"/>
+        <!-- reden stoppen/wijzigen gebruik -->
+		<xsl:value-of select="$substAdmNode/entryRelationship/observation[templateId/@root = $redenmgb_templateId]/value/@displayName"/>
 
 	</xsl:template>
 
@@ -1531,7 +1640,7 @@
 	<xd:doc>
 		<xd:desc>Returns the remark and/or the additional information of the component in the current
       context.</xd:desc>
-		<xd:param name="substAdmNode">The location of the component in the document, at substanceAdministration level.</xd:param>
+		<xd:param name="substAdmNode">The location of the component in the document, at substanceAdministration/supply level.</xd:param>
 	</xd:doc>
 	<xsl:template name="getMedicationRemark">
 		<xsl:param name="substAdmNode" as="node()"/>
@@ -1552,7 +1661,7 @@
 		<!-- Gerda decided 'Reden van afspraak' will usually not be filled, and showing it night cause confusion, so it is not displayed  
    <!-\- Display 'Reden van afspraak' unless it is a Stop - then the reason is already displayed in 'Reason' -\->
     <xsl:if
-      test="not($substAdmNode/entryRelationship/observation[templateId/@root = '2.16.840.1.113883.2.4.3.11.60.20.77.10.9067'])">
+      test="not($substAdmNode/entryRelationship/observation[templateId/@root = $stoptype_templateId])">
       <!-\- Add a line break if necessary -\->
       <xsl:if test="(exists($substAdmNode/entryRelationship/act[templateId/@root='2.16.840.1.113883.2.4.3.11.60.20.77.10.9069']) or
         exists($substAdmNode/entryRelationship/observation[templateId/@root='2.16.840.1.113883.2.4.3.11.60.20.77.10.9177'])) and 
@@ -1560,7 +1669,7 @@
         <br />
       </xsl:if>      
       <xsl:value-of
-        select="$substAdmNode/entryRelationship/observation[templateId/@root = '2.16.840.1.113883.2.4.3.11.60.20.77.10.9083']/text"/>
+        select="$substAdmNode/entryRelationship/observation[templateId/@root = $redenta_templateId]/text"/>
     </xsl:if>
 -->
 
@@ -1570,7 +1679,7 @@
 	<xd:doc>
 		<xd:desc>Returns the author of the component in the current context. In case of a care provider its
       role is also shown. In case of a patient only the text 'patient' is displayed.</xd:desc>
-		<xd:param name="substAdmNode">The location of the component in the document, at substanceAdministration level.</xd:param>
+		<xd:param name="substAdmNode">The location of the component in the document, at substanceAdministration/supply level.</xd:param>
 	</xd:doc>
 	<xsl:template name="getMedicationAuthor">
 		<xsl:param name="substAdmNode" as="node()"/>
